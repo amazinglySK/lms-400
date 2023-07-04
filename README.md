@@ -20,11 +20,11 @@ Member File with the following record structure
 
 Operations :
 
-[] Addition of records to library file
-[] Modification of records of library file
-[] Addition of records to member file
-[] Modification of address and phone number of existing member in member file.
-[] Issue of book
-[] Return of books - <= 7 days = 0.5 / day - <= 15 days = 1 / day - 15+ days = 2/day
-[] Searching for availability of a particular book in the library
-[] Reports - Subject wise book list - List of books issued to members - List of available books - List of defaulters - Members and books which are issued more than 7 days - List of members in the library
+-   [] Addition of records to library file
+-   [] Modification of records of library file
+-   [] Addition of records to member file
+-   [] Modification of address and phone number of existing member in member file.
+-   [] Issue of book
+-   [] Return of books - <= 7 days = 0.5 / day - <= 15 days = 1 / day - 15+ days = 2/day
+-   [] Searching for availability of a particular book in the library
+-   [] Reports - Subject wise book list - List of books issued to members - List of available books - List of defaulters - Members and books which are issued more than 7 days - List of members in the library
