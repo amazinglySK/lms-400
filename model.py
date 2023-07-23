@@ -16,8 +16,12 @@ class Model:
         self.config = config
         self.cursor = self._connect()
 
-        # TODO : Do this only when table doesn't exist
-        self._new_table()
+        try:
+            self.cursor.execute(
+                f"SELECT * FROM {self.name}"
+            )  # This should fail when the table doesn't exist
+        except:
+            self._new_table()
 
     def _connect(self):
         c = self.config
