@@ -1,11 +1,26 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QLabel, QPushButton
 
+import member_view
 
-class AnotherWindow(QMainWindow):
+
+class DashboardView(QMainWindow):
     def __init__(self):
-        super(AnotherWindow, self).__init__()
+        super(DashboardView, self).__init__()
         uic.loadUi("./ui/Dashboard Window.ui", self)
+        self.member_button = self.findChild(QPushButton, "members_button")
+        self.books_button = self.findChild(QPushButton, "books_button")
+
+        self.member_button.clicked.connect(self._redirect_member)
+
+    def _redirect_member(self):
+        self.w = member_view.MemberWindow()
+        self.w.show()
+        self.close()
+
+    # def _redirect_books(self):
+    #     self.w = BooksMainWindow()
+    #     self.w.show()
 
 
 class Window(QMainWindow):
@@ -17,7 +32,7 @@ class Window(QMainWindow):
         self.continue_button.clicked.connect(self._on_dashboard_click)
 
     def _on_dashboard_click(self):
-        self.w = AnotherWindow()
+        self.w = DashboardView()
         self.w.show()
 
 

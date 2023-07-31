@@ -11,3 +11,8 @@ class BookAlreadyBorrowedError(Exception):
 class IncorrectDataStructure(Exception):
     def __init__(self):
         super().__init__("Incorrect data provided")
+
+
+class MemberNotFoundError(Exception):
+    def __init__(self):
+        super().__init__("Member not found")
