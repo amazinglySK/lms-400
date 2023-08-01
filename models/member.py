@@ -1,7 +1,11 @@
 import mysql.connector
 
 from .model import Model
-from ..exceptions import MemberNotFoundError
+
+
+class MemberNotFoundError(Exception):
+    def __init__(self):
+        super().__init__("Member not found")
 
 
 class Member(Model):
@@ -10,18 +14,21 @@ class Member(Model):
         self.cursor = self.conn.cursor()
         self.struct = [
             "member_code",
-            "member_address",
-            "member_phone",
+            "name",
+            "address",
+            "phone",
             "maximum_limit",
             "no_issued",
         ]
 
         try:
             self.cursor.execute(f"select * from {self.name}")
+            r = self.cursor.fetchall()
         except:
             self.cursor.execute(
-                f"create table {self.name}(member_code int, member_address varchar(30), member_phone varchar(12), maximum_limit int, no_issued int)"
+                f"create table {self.name}(member_code int primary key auto_increment, name varchar(20), address varchar(30), phone varchar(12), maximum_limit int default(3), no_issued int default(0))"
             )
+            self.conn.commit()
 
     def new(self, details: dict):
         col, values = self._check_data(details)

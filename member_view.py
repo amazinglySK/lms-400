@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QLineEdit, QLabel
 from PyQt5 import uic
 
 
@@ -13,11 +13,21 @@ class MemberWindow(QMainWindow):
         self.new_mem["nameLE"] = self.findChild(QLineEdit, "NameLineEdit")
         self.new_mem["addLE"] = self.findChild(QLineEdit, "AddLineEdit")
         self.new_mem["phoneLE"] = self.findChild(QLineEdit, "PhoneLineEdit")
-        self.new_mem["submit_btn"].clicked.connect(self._handle_new_mem)
+        self.new_mem["display"] = self.findChild(QLabel, "NewMemDisplay")
         # ============================================================
 
-    def _handle_new_mem(self):
+    def setDisplayText(self, text: str):
+        self.new_mem["display"].setText(text)
+        self.new_mem["display"].setFocus()
+
+    def clearLineEdits(self):
+        for k, v in self.new_mem.items():
+            if k.endswith("LE"):
+                v.setText("")
+
+    def get_mem_details(self):
         name = self.new_mem["nameLE"].text()
         address = self.new_mem["addLE"].text()
         phone = self.new_mem["phoneLE"].text()
-        print(name, address, phone)
+
+        return {"name": name, "address": address, "phone": phone}

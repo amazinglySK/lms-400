@@ -1,7 +1,11 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QLabel, QPushButton
+import mysql.connector
 
 import member_view
+import member_controller
+from models.books import Books
+from models.member import Member
 
 
 class DashboardView(QMainWindow):
@@ -11,10 +15,20 @@ class DashboardView(QMainWindow):
         self.member_button = self.findChild(QPushButton, "members_button")
         self.books_button = self.findChild(QPushButton, "books_button")
 
+        # Database
+        self.conn = mysql.connector.connect(
+            host="localhost", user="root", password="tiger", database="LMS"
+        )
+        self.book_model = Books(connection=self.conn)
+        self.member_model = Member(connection=self.conn)
+
         self.member_button.clicked.connect(self._redirect_member)
 
     def _redirect_member(self):
         self.w = member_view.MemberWindow()
+        self.w_controller = member_controller.MemberController(
+            self.book_model, self.member_model, self.w
+        )
         self.w.show()
         self.close()
 
