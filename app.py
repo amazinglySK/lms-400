@@ -1,9 +1,12 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QLabel, QPushButton
 import mysql.connector
+import sys
 
 import member_view
 import member_controller
+import book_view
+import book_controller
 from models.books import Books
 from models.member import Member
 
@@ -23,6 +26,7 @@ class DashboardView(QMainWindow):
         self.member_model = Member(connection=self.conn)
 
         self.member_button.clicked.connect(self._redirect_member)
+        self.books_button.clicked.connect(self._redirect_books)
 
     def _redirect_member(self):
         self.w = member_view.MemberWindow()
@@ -32,9 +36,13 @@ class DashboardView(QMainWindow):
         self.w.show()
         self.close()
 
-    # def _redirect_books(self):
-    #     self.w = BooksMainWindow()
-    #     self.w.show()
+    def _redirect_books(self):
+        self.w = book_view.BookWindow()
+        self.w_controller = book_controller.BookController(
+            self.book_model, self.member_model, self.w
+        )
+        self.w.show()
+        self.close()
 
 
 class Window(QMainWindow):
@@ -54,4 +62,5 @@ if __name__ == "__main__":
     app = QApplication([])
     window = Window()
     window.show()
-    app.exec()
+    r = app.exec()
+    sys.exit(r)

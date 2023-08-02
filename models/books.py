@@ -37,7 +37,7 @@ class Books(Model):
             r = self.cursor.fetchall()
         except:
             self.cursor.execute(
-                f"create table {self.name}(bookcode int primary key, sub_code varchar(10), title varchar(15), author varchar(15), publisher varchar(15), price int, member_code int default(0), doi date)"
+                f"create table {self.name}(bookcode int primary key auto_increment, sub_code varchar(20), title varchar(30), author varchar(30), publisher varchar(30), price int, member_code int default(0), doi date default(curdate()))"
             )
             self.conn.commit()
 

@@ -33,7 +33,7 @@ class Model:
                 raise Exception("Incorrect data structure")
             col_names.append(i)
             if type(data[i]) == int:
-                values.append(data[i])
+                values.append(str(data[i]))
             else:
                 values.append(f"'{data[i]}'")
         return col_names, values
