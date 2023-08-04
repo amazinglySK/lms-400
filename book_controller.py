@@ -25,8 +25,15 @@ class BookController:
         except:
             self._view.set_response("Something went wrong")
 
-        return
+    def get_all_books(self):
+        d = self._book.get_all_books()
+        self._view.display_books(d)
+
+    def get_avail_books(self):
+        d = self._book.get_avail_books()
+        self._view.display_books(d, all=False)
 
     def _connectSignalsAndSlots(self):
         self._view.newBookTab["submit_btn"].clicked.connect(self.new_book)
-        return
+        self._view.booksTab["get_all_books"].clicked.connect(self.get_all_books)
+        self._view.booksTab["get_avail_books"].clicked.connect(self.get_avail_books)

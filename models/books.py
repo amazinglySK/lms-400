@@ -73,7 +73,12 @@ class Books(Model):
     def get_all_books(self):
         self.cursor.execute(f"select * from {self.name}")
         results = self.cursor.fetchall()
-        return results
+        return self._parse_result(results)
+
+    def get_avail_books(self):
+        self.cursor.execute(f"select * from {self.name} where member_code = 0")
+        results = self.cursor.fetchall()
+        return self._parse_result(results)
 
     def borrow_book(self, book_code: int, member_code: int):
         book = self.get_book(book_code)

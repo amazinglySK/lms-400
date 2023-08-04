@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="NewBookTab">
      <attribute name="title">
@@ -49,7 +49,7 @@
        <string>Add a New Book</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -242,7 +242,7 @@
      <attribute name="title">
       <string>Book details</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="AvailableBooksButton">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -255,7 +255,7 @@
        <string>Load Available Books</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="AllBooksButton">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -268,7 +268,7 @@
        <string>Load All Books</string>
       </property>
      </widget>
-     <widget class="QScrollArea" name="scrollArea">
+     <widget class="QScrollArea" name="AllBooksScrollArea">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -291,7 +291,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QScrollArea" name="scrollArea_2">
+     <widget class="QScrollArea" name="AvailableBooksScrollArea">
       <property name="geometry">
        <rect>
         <x>20</x>
