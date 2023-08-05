@@ -21,9 +21,9 @@ class BookController:
             return
         try:
             self._book.add_new_book(d)
-            self._view.set_response("Book added successfully")
+            self._view.show_msg("Book added successfully")
         except:
-            self._view.set_response("Something went wrong")
+            self._view.show_msg("Something went wrong")
         finally:
             self._view.clear_response()
 
@@ -43,11 +43,11 @@ class BookController:
         try:
             self._member.issue_book(member_code)
             self._book.borrow_book(book_code, member_code)
-            self._view.display_issue_msg("Success!")
+            self._view.show_msg("Success!")
         except MemberExceedingLimit:
-            self._view.display_issue_msg("The member exceeds limit")
+            self._view.show_msg("The member exceeds limit")
         finally:
-            self._view.clear_issue_msgs()
+            self._view.clear_issue_lines()
 
     def search_book(self):
         name = self._view.issueTab["book_search"].text().strip()

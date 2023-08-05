@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import (
     QLabel,
     QVBoxLayout,
     QScrollArea,
+    QMessageBox,
 )
 
 from PyQt5.QtGui import QFont
@@ -23,7 +24,6 @@ class BookWindow(QMainWindow):
         # NEW BOOK TAB
         self.newBookTab = {}
         self.newBookTab["submit_btn"] = self.findChild(QPushButton, "NewBookButton")
-        self.newBookTab["display"] = self.findChild(QLabel, "display_text")
         self.newBookTab["title"] = self.findChild(QLineEdit, "Title")
         self.newBookTab["author"] = self.findChild(QLineEdit, "Author")
         self.newBookTab["publisher"] = self.findChild(QLineEdit, "Publisher")
@@ -72,7 +72,6 @@ class BookWindow(QMainWindow):
             QPushButton, "MemberSearchButton"
         )
         self.issueTab["book_search_btn"] = self.findChild(QPushButton, "SearchButton")
-        self.issueTab["display"] = self.findChild(QLabel, "IssueResponseLabel")
         self.issueTab["issue_btn"] = self.findChild(QPushButton, "IssueButton")
 
         self.issueTab["members_area"] = self.findChild(
@@ -210,8 +209,13 @@ class BookWindow(QMainWindow):
 
         return card
 
-    def set_response(self, text):
-        self.newBookTab["display"].setText(text)
+    def show_msg(self, text):
+        msg = QMessageBox()
+        msg.setText(text)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.setWindowTitle("Alert")
+
+        msg.exec()
 
     def clear_response(self):
         self.newBookTab["title"].clear()
@@ -219,10 +223,7 @@ class BookWindow(QMainWindow):
         self.newBookTab["publisher"].clear()
         self.newBookTab["price"].setValue(0)
 
-    def display_issue_msg(self, text):
-        self.issueTab["display"].setText(text)
-
-    def clear_issue_msgs(self):
+    def clear_issue_lines(self):
         self.issueTab["member_search"].clear()
         self.issueTab["book_search"].clear()
         self._clearLayout(self.issueTab["members_area_vbox"])

@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="NewBookTab">
      <attribute name="title">
@@ -33,20 +33,23 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>310</x>
         <y>40</y>
-        <width>151</width>
+        <width>131</width>
         <height>51</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Bahnschrift</family>
-        <pointsize>14</pointsize>
+        <pointsize>15</pointsize>
        </font>
       </property>
       <property name="text">
        <string>Add a New Book</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QWidget" name="layoutWidget">
@@ -55,7 +58,7 @@
         <x>230</x>
         <y>110</y>
         <width>291</width>
-        <height>408</height>
+        <height>331</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -216,22 +219,6 @@
          </property>
          <property name="text">
           <string>Submit</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="display_text">
-         <property name="font">
-          <font>
-           <family>Bahnschrift</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -458,43 +445,24 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QPushButton" name="IssueButton">
       <property name="geometry">
        <rect>
         <x>270</x>
         <y>460</y>
-        <width>231</width>
-        <height>54</height>
+        <width>201</width>
+        <height>27</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QPushButton" name="IssueButton">
-         <property name="font">
-          <font>
-           <family>Bahnschrift</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Issue</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="IssueResponseLabel">
-         <property name="font">
-          <font>
-           <family>Bahnschrift</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Issue</string>
+      </property>
      </widget>
     </widget>
    </widget>

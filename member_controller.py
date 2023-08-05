@@ -18,10 +18,9 @@ class MemberController:
 
         try:
             self._mem_model.new(details)
-            self._view.setDisplayText("New Member Added")
-            self._view.clearLineEdits()
+            self._view.show_msg("New Member Added")
         except:
-            self._view.setDisplayText("Oops something went wrong")
+            self._view.show_msg("Oops something went wrong")
         finally:
             self._view.clearLineEdits()
 

@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QScrollArea,
+    QMessageBox,
 )
 
 from PyQt5.QtGui import QFont
@@ -25,7 +26,6 @@ class MemberWindow(QMainWindow):
         self.new_mem["nameLE"] = self.findChild(QLineEdit, "NameLineEdit")
         self.new_mem["addLE"] = self.findChild(QLineEdit, "AddLineEdit")
         self.new_mem["phoneLE"] = self.findChild(QLineEdit, "PhoneLineEdit")
-        self.new_mem["display"] = self.findChild(QLabel, "NewMemDisplay")
         # ============================================================
 
         # MEMBER ROSTER TAB
@@ -70,9 +70,13 @@ class MemberWindow(QMainWindow):
 
         return card
 
-    def setDisplayText(self, text: str):
-        self.new_mem["display"].setText(text)
-        self.new_mem["display"].setFocus()
+    def show_msg(self, text: str):
+        msg = QMessageBox()
+        msg.setText(text)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.setWindowTitle("Alert")
+
+        msg.exec()
 
     def clearLineEdits(self):
         for k, v in self.new_mem.items():
