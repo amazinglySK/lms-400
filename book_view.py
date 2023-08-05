@@ -61,6 +61,44 @@ class BookWindow(QMainWindow):
             QPushButton, "AvailableBooksButton"
         )
 
+        # ==========================================================================
+
+        # ISSUE BOOKS TAB
+        self.issueTab = {}
+
+        self.issueTab["member_search"] = self.findChild(QLineEdit, "MemberSearchBox")
+        self.issueTab["book_search"] = self.findChild(QLineEdit, "SearchBox")
+        self.issueTab["member_search_btn"] = self.findChild(
+            QPushButton, "MemberSearchButton"
+        )
+        self.issueTab["book_search_btn"] = self.findChild(QPushButton, "SearchButton")
+        self.issueTab["display_msg"] = self.findChild(QLabel, "IssueResponseLabel")
+
+        self.issueTab["members_area"] = self.findChild(
+            QScrollArea, "MemberSearchResultBox"
+        )
+        self.issueTab["books_area"] = self.findChild(QScrollArea, "SearchResultBox")
+
+        self.issueTab["members_area_widget"] = QWidget()
+        self.issueTab["members_area_vbox"] = QVBoxLayout()
+        self.issueTab["members_area_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.issueTab["members_area_widget"].setLayout(
+            self.issueTab["members_area_vbox"]
+        )
+
+        self.issueTab["books_area_widget"] = QWidget()
+        self.issueTab["books_area_vbox"] = QVBoxLayout()
+        self.issueTab["books_area_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.issueTab["books_area_widget"].setLayout(self.issueTab["books_area_vbox"])
+
+        self.issueTab["books_area"].setWidget(self.issueTab["books_area_widget"])
+        self.issueTab["members_area"].setWidget(self.issueTab["members_area_widget"])
+        # ==========================================================================
+
+    def _clearLayout(self, layout: QVBoxLayout):
+        for i in reversed(range(layout.count())):
+            layout.itemAt(i).widget().setParent(None)
+
     def get_book_details(self):
         title = self.newBookTab["title"].text()
         author = self.newBookTab["author"].text()
@@ -77,13 +115,51 @@ class BookWindow(QMainWindow):
 
         return d
 
+    def display_member_results(self, details: list[dict]):
+        for d in details:
+            c = self._memberCard(d)
+            self._clearLayout(self.issueTab["members_area_vbox"])
+            self.issueTab["members_area_vbox"].addWidget(c)
+
+    def display_books_results(self, details: list):
+        for d in details:
+            b = self._bookCard(d, True)
+            self._clearLayout(self.issueTab["books_area_vbox"])
+            self.issueTab["books_area_vbox"].addWidget(b)
+
     def display_books(self, details: list, all=True):
         comp = "all_books_vbox" if all else "available_books_vbox"
         for d in details:
             b = self._bookCard(d)
+            self._clearLayout(self.booksTab[comp])
             self.booksTab[comp].addWidget(b)
 
-    def _bookCard(self, details: dict) -> QWidget:
+    def _memberCard(self, details: dict) -> QWidget:
+        card = QWidget()
+
+        font = QFont("Bahnschrift", 12)
+        name = QLabel(f"Name : {details['name']}", card)
+        name.setFont(font)
+        phone = QLabel(f"Phone : {details['phone']}", card)
+        phone.setFont(font)
+        id = QLabel(f"Id : {details['member_code']}", card)
+        id.setFont(font)
+        lock_btn = QPushButton("Lock", card)
+        lock_btn.setFont(font)
+        lock_btn.setFixedWidth(80)
+
+        card_vbox = QVBoxLayout()
+        card_vbox.addWidget(name, 1)
+        card_vbox.addWidget(phone, 1)
+        card_vbox.addWidget(id, 1)
+        card_vbox.addWidget(lock_btn, 1)
+        card.setLayout(card_vbox)
+        card.setFixedHeight(120)
+        card.setStyleSheet("background-color : red;")
+
+        return card
+
+    def _bookCard(self, details: dict, display_avail=False) -> QWidget:
         card = QWidget()
 
         font = QFont("Bahnschrift", 12)
@@ -98,6 +174,12 @@ class BookWindow(QMainWindow):
         card_vbox.addWidget(title, 1)
         card_vbox.addWidget(author, 1)
         card_vbox.addWidget(price, 1)
+        if display_avail:
+            availability = QLabel(
+                f"Available : {'yes' if details['member_code'] == 0 else 'no'}"
+            )
+            availability.setFont(font)
+            card_vbox.addWidget(availability)
         card.setLayout(card_vbox)
         card.setFixedHeight(120)
         card.setStyleSheet("background-color : blue;")

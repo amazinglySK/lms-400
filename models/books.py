@@ -75,6 +75,11 @@ class Books(Model):
         results = self.cursor.fetchall()
         return self._parse_result(results)
 
+    def search_book_by_name(self, name: str):
+        self.cursor.execute(f"select * from {self.name} where title like '%{name}%'")
+        results = self.cursor.fetchall()
+        return self._parse_result(results)
+
     def get_avail_books(self):
         self.cursor.execute(f"select * from {self.name} where member_code = 0")
         results = self.cursor.fetchall()

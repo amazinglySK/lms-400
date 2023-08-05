@@ -25,6 +25,21 @@ class BookController:
         except:
             self._view.set_response("Something went wrong")
 
+    def search_member(self):
+        name = self._view.issueTab["member_search"].text().strip()
+        # TODO : Check if the string is just a huge long space as well
+        if name in ["", " "]:  # checks for blank strings
+            return
+        m = self._member.search_member_by_name(name)
+        self._view.display_member_results(m)
+
+    def search_book(self):
+        name = self._view.issueTab["book_search"].text().strip()
+        if name == "":
+            return
+        m = self._book.search_book_by_name(name)
+        self._view.display_books_results(m)
+
     def get_all_books(self):
         d = self._book.get_all_books()
         self._view.display_books(d)
@@ -37,3 +52,5 @@ class BookController:
         self._view.newBookTab["submit_btn"].clicked.connect(self.new_book)
         self._view.booksTab["get_all_books"].clicked.connect(self.get_all_books)
         self._view.booksTab["get_avail_books"].clicked.connect(self.get_avail_books)
+        self._view.issueTab["member_search_btn"].clicked.connect(self.search_member)
+        self._view.issueTab["book_search_btn"].clicked.connect(self.search_book)

@@ -45,7 +45,12 @@ class MemberWindow(QMainWindow):
     def displayMembers(self, members: dict):
         for m in members:
             c = self._memberCard(m["name"], m["phone"])
+            self._clearLayout(self.member_roster["vbox"])
             self.member_roster["vbox"].addWidget(c)
+
+    def _clearLayout(self, layout: QVBoxLayout):
+        for i in reversed(range(layout.count())):
+            layout.itemAt(i).widget().setParent(None)
 
     def _memberCard(self, name: str, phone: str) -> QWidget:
         card = QWidget()

@@ -54,6 +54,16 @@ class Member(Model):
         results = self._parse_result(results)
         return results
 
+    def search_member_by_name(self, member_name: str) -> bool | list[dict]:
+        self.cursor.execute(
+            f"select * from {self.name} where name like '%{member_name}%'"
+        )
+        results = self.cursor.fetchall()
+        if self.cursor.rowcount == 0:
+            return False
+        results = self._parse_result(results)
+        return results
+
     def update_details(self, details: dict, member_code: int):
         col, values = self._check_data(details)
         cmd_str = ""
