@@ -1,6 +1,6 @@
 import book_view
 from models.books import Books
-from models.member import Member
+from models.member import Member, MemberExceedingLimit
 
 
 class BookController:
@@ -33,6 +33,19 @@ class BookController:
         m = self._member.search_member_by_name(name)
         self._view.display_member_results(m)
 
+    def issue_book(self):
+        book_code = self._view.issueTab["selected_book_code"]
+        member_code = self._view.issueTab["selected_member_code"]
+        if book_code == 0 or member_code == 0:
+            self._view.display_issue_msg("Please lock the options")
+            return
+        try:
+            self._member.issue_book(member_code)
+            self._book.borrow_book(book_code, member_code)
+            self._view.display_issue_msg("Success!")
+        except MemberExceedingLimit:
+            self._view.display_issue_msg("The member exceeds limit")
+
     def search_book(self):
         name = self._view.issueTab["book_search"].text().strip()
         if name == "":
@@ -54,3 +67,4 @@ class BookController:
         self._view.booksTab["get_avail_books"].clicked.connect(self.get_avail_books)
         self._view.issueTab["member_search_btn"].clicked.connect(self.search_member)
         self._view.issueTab["book_search_btn"].clicked.connect(self.search_book)
+        self._view.issueTab["issue_btn"].clicked.connect(self.issue_book)

@@ -7,11 +7,6 @@ class BookNotFoundError(Exception):
         super().__init__("Book not found")
 
 
-class BookAlreadyBorrowedError(Exception):
-    def __init__(self):
-        super().__init__("Book already borrowed")
-
-
 class IncorrectDataStructure(Exception):
     def __init__(self):
         super().__init__("Incorrect data provided")
@@ -55,7 +50,7 @@ class Books(Model):
         for c, v in zip(col_names, values):
             command_str += f"{c} = {v},"
         cmd = command_str[:-1]  # Omitting the final ","
-        cmd = f"update {self.name} set {cmd} where book_code == {book_code}"
+        cmd = f"update {self.name} set {cmd} where bookcode = {book_code}"
         self.cursor.execute(cmd)
         self.conn.commit()
         return
@@ -63,7 +58,7 @@ class Books(Model):
     def get_book(self, book_code: int):
         try:
             self.cursor.execute(
-                f"select * from {self.name} where book_code == {book_code}"
+                f"select * from {self.name} where bookcode = {book_code}"
             )
             result = self.cursor.fetchall()[0]
             return self._parse_result(result)
@@ -86,17 +81,13 @@ class Books(Model):
         return self._parse_result(results)
 
     def borrow_book(self, book_code: int, member_code: int):
-        book = self.get_book(book_code)
-        if book["member_code"] == 0:
-            self.modify_book(
-                book["book_code"],
-                {
-                    "member_code": member_code,
-                    "doi": str(date.today()),
-                },
-            )  # Borrowing the book
-        else:
-            raise BookAlreadyBorrowedError
+        self.modify_book(
+            book_code,
+            {
+                "member_code": member_code,
+                "doi": str(date.today()),
+            },
+        )
 
     def _calc_fine(self, delta):
         d = 0
@@ -121,7 +112,7 @@ class Books(Model):
         return fine
 
     def get_subject_books(self, subcode: str):
-        self.cursor.execute(f"select * from {self.name} where sub_code == '{subcode}'")
+        self.cursor.execute(f"select * from {self.name} where sub_code = '{subcode}'")
         result = self.cursor.fetchall()
         return self._parse_result(result)
 

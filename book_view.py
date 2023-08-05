@@ -72,7 +72,8 @@ class BookWindow(QMainWindow):
             QPushButton, "MemberSearchButton"
         )
         self.issueTab["book_search_btn"] = self.findChild(QPushButton, "SearchButton")
-        self.issueTab["display_msg"] = self.findChild(QLabel, "IssueResponseLabel")
+        self.issueTab["display"] = self.findChild(QLabel, "IssueResponseLabel")
+        self.issueTab["issue_btn"] = self.findChild(QPushButton, "IssueButton")
 
         self.issueTab["members_area"] = self.findChild(
             QScrollArea, "MemberSearchResultBox"
@@ -93,6 +94,8 @@ class BookWindow(QMainWindow):
 
         self.issueTab["books_area"].setWidget(self.issueTab["books_area_widget"])
         self.issueTab["members_area"].setWidget(self.issueTab["members_area_widget"])
+        self.issueTab["selected_member_code"] = 0
+        self.issueTab["selected_book_code"] = 0
         # ==========================================================================
 
     def _clearLayout(self, layout: QVBoxLayout):
@@ -116,22 +119,22 @@ class BookWindow(QMainWindow):
         return d
 
     def display_member_results(self, details: list[dict]):
+        self._clearLayout(self.issueTab["members_area_vbox"])
         for d in details:
             c = self._memberCard(d)
-            self._clearLayout(self.issueTab["members_area_vbox"])
             self.issueTab["members_area_vbox"].addWidget(c)
 
     def display_books_results(self, details: list):
+        self._clearLayout(self.issueTab["books_area_vbox"])
         for d in details:
             b = self._bookCard(d, True)
-            self._clearLayout(self.issueTab["books_area_vbox"])
             self.issueTab["books_area_vbox"].addWidget(b)
 
     def display_books(self, details: list, all=True):
         comp = "all_books_vbox" if all else "available_books_vbox"
+        self._clearLayout(self.booksTab[comp])
         for d in details:
             b = self._bookCard(d)
-            self._clearLayout(self.booksTab[comp])
             self.booksTab[comp].addWidget(b)
 
     def _memberCard(self, details: dict) -> QWidget:
@@ -146,6 +149,11 @@ class BookWindow(QMainWindow):
         id.setFont(font)
         lock_btn = QPushButton("Lock", card)
         lock_btn.setFont(font)
+
+        def lock_func():
+            self.issueTab["selected_member_code"] = details["member_code"]
+
+        lock_btn.clicked.connect(lock_func)
         lock_btn.setFixedWidth(80)
 
         card_vbox = QVBoxLayout()
@@ -180,11 +188,30 @@ class BookWindow(QMainWindow):
             )
             availability.setFont(font)
             card_vbox.addWidget(availability)
+
+        lock_btn = QPushButton("Lock", card)
+        lock_btn.setFont(font)
+
+        def lock_func():
+            self.issueTab["selected_book_code"] = details["bookcode"]
+
+        lock_btn.clicked.connect(lock_func)
+        lock_btn.setFixedWidth(80)
+        borrowed = details["member_code"] != 0
+        if borrowed:
+            lock_btn.setEnabled(False)
+        else:
+            lock_btn.clicked.connect(lock_func)
+        card_vbox.addWidget(lock_btn)
+
         card.setLayout(card_vbox)
-        card.setFixedHeight(120)
+        card.setFixedHeight(140)
         card.setStyleSheet("background-color : blue;")
 
         return card
 
     def set_response(self, text):
         self.newBookTab["display"].setText(text)
+
+    def display_issue_msg(self, text):
+        self.issueTab["display"].setText(text)

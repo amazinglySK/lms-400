@@ -8,6 +8,11 @@ class MemberNotFoundError(Exception):
         super().__init__("Member not found")
 
 
+class MemberExceedingLimit(Exception):
+    def __init__(self):
+        super().__init__("Member exceeding the max limit of books")
+
+
 class Member(Model):
     def __init__(self, connection: mysql.connector.MySQLConnection):
         super().__init__(connection, "members")
@@ -46,12 +51,12 @@ class Member(Model):
 
     def get_member(self, member_code):
         self.cursor.execute(
-            f"select * from {self.name} where member_code == {member_code}"
+            f"select * from {self.name} where member_code = {member_code}"
         )
         results = self.cursor.fetchall()
         if self.cursor.rowcount == 0:
             raise MemberNotFoundError
-        results = self._parse_result(results)
+        results = self._parse_result(results[0])
         return results
 
     def search_member_by_name(self, member_name: str) -> bool | list[dict]:
@@ -74,3 +79,10 @@ class Member(Model):
         self.cursor.execute(cmd)
         self.conn.commit()
         return
+
+    def issue_book(self, member_code: int):
+        m = self.get_member(member_code)
+        if m["maximum_limit"] < m["no_issued"] + 1:
+            raise MemberExceedingLimit
+
+        self.update_details({"no_issued": m["no_issued"] + 1}, member_code)
