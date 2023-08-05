@@ -19,7 +19,7 @@ class BookWindow(QMainWindow):
     def __init__(self):
         super(BookWindow, self).__init__()
         uic.loadUi("./ui/Book Window.ui", self)
-
+        # TODO : Change the QLabels for displaying message to QMessageBox
         # NEW BOOK TAB
         self.newBookTab = {}
         self.newBookTab["submit_btn"] = self.findChild(QPushButton, "NewBookButton")
