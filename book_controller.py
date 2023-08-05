@@ -24,10 +24,11 @@ class BookController:
             self._view.set_response("Book added successfully")
         except:
             self._view.set_response("Something went wrong")
+        finally:
+            self._view.clear_response()
 
     def search_member(self):
         name = self._view.issueTab["member_search"].text().strip()
-        # TODO : Check if the string is just a huge long space as well
         if name in ["", " "]:  # checks for blank strings
             return
         m = self._member.search_member_by_name(name)
@@ -45,6 +46,8 @@ class BookController:
             self._view.display_issue_msg("Success!")
         except MemberExceedingLimit:
             self._view.display_issue_msg("The member exceeds limit")
+        finally:
+            self._view.clear_issue_msgs()
 
     def search_book(self):
         name = self._view.issueTab["book_search"].text().strip()

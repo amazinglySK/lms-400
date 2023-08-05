@@ -22,6 +22,8 @@ class MemberController:
             self._view.clearLineEdits()
         except:
             self._view.setDisplayText("Oops something went wrong")
+        finally:
+            self._view.clearLineEdits()
 
     def load_all_mem_details(self):
         members = self._mem_model.get_all_members()

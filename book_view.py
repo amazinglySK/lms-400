@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (
 )
 
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5 import uic
 
 
@@ -127,7 +127,7 @@ class BookWindow(QMainWindow):
     def display_books_results(self, details: list):
         self._clearLayout(self.issueTab["books_area_vbox"])
         for d in details:
-            b = self._bookCard(d, True)
+            b = self._bookCard(d, display_avail=True, lock_btn=True)
             self.issueTab["books_area_vbox"].addWidget(b)
 
     def display_books(self, details: list, all=True):
@@ -167,7 +167,7 @@ class BookWindow(QMainWindow):
 
         return card
 
-    def _bookCard(self, details: dict, display_avail=False) -> QWidget:
+    def _bookCard(self, details: dict, display_avail=False, lock_btn=False) -> QWidget:
         card = QWidget()
 
         font = QFont("Bahnschrift", 12)
@@ -188,21 +188,21 @@ class BookWindow(QMainWindow):
             )
             availability.setFont(font)
             card_vbox.addWidget(availability)
+        if lock_btn:
+            lock_btn = QPushButton("Lock", card)
+            lock_btn.setFont(font)
 
-        lock_btn = QPushButton("Lock", card)
-        lock_btn.setFont(font)
+            def lock_func():
+                self.issueTab["selected_book_code"] = details["bookcode"]
 
-        def lock_func():
-            self.issueTab["selected_book_code"] = details["bookcode"]
-
-        lock_btn.clicked.connect(lock_func)
-        lock_btn.setFixedWidth(80)
-        borrowed = details["member_code"] != 0
-        if borrowed:
-            lock_btn.setEnabled(False)
-        else:
             lock_btn.clicked.connect(lock_func)
-        card_vbox.addWidget(lock_btn)
+            lock_btn.setFixedWidth(80)
+            borrowed = details["member_code"] != 0
+            if borrowed:
+                lock_btn.setEnabled(False)
+            else:
+                lock_btn.clicked.connect(lock_func)
+            card_vbox.addWidget(lock_btn)
 
         card.setLayout(card_vbox)
         card.setFixedHeight(140)
@@ -213,5 +213,17 @@ class BookWindow(QMainWindow):
     def set_response(self, text):
         self.newBookTab["display"].setText(text)
 
+    def clear_response(self):
+        self.newBookTab["title"].clear()
+        self.newBookTab["author"].clear()
+        self.newBookTab["publisher"].clear()
+        self.newBookTab["price"].setValue(0)
+
     def display_issue_msg(self, text):
         self.issueTab["display"].setText(text)
+
+    def clear_issue_msgs(self):
+        self.issueTab["member_search"].clear()
+        self.issueTab["book_search"].clear()
+        self._clearLayout(self.issueTab["members_area_vbox"])
+        self._clearLayout(self.issueTab["books_area_vbox"])
