@@ -31,6 +31,6 @@ Operations :
 -   [ ] Subject wise book list
 -   [ ] List of books issued to members
 -   [x] List of available books
--   [ ] List of defaulters
+-   [x] List of defaulters
 -   [ ] Members and books which are issued more than 7 days
 -   [x] List of members in the library

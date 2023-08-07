@@ -42,11 +42,30 @@ class MemberWindow(QMainWindow):
         self.member_roster["scroll_area"].setWidget(self.member_roster["widget"])
         # ============================================================
 
+        # DEFAULTERS TAB
+
+        self.defaulters = {}
+        self.defaulters["scroll_area"] = self.findChild(QScrollArea, "DefaultersArea")
+        self.defaulters["widget"] = QWidget()
+        self.defaulters["vbox"] = QVBoxLayout()
+        self.defaulters["vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.defaulters["load"] = self.findChild(QPushButton, "DefaulterLoadButton")
+        self.defaulters["widget"].setLayout(self.defaulters["vbox"])
+        self.defaulters["scroll_area"].setWidget(self.defaulters["widget"])
+
+        # ============================================================
+
     def displayMembers(self, members: dict):
         self._clearLayout(self.member_roster["vbox"])
         for m in members:
             c = self._memberCard(m["name"], m["phone"])
             self.member_roster["vbox"].addWidget(c)
+
+    def displayDefaulters(self, members: dict):
+        self._clearLayout(self.defaulters["vbox"])
+        for m in members:
+            c = self._memberCard(m["name"], m["phone"])
+            self.defaulters["vbox"].addWidget(c)
 
     def _clearLayout(self, layout: QVBoxLayout):
         for i in reversed(range(layout.count())):

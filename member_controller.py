@@ -28,6 +28,19 @@ class MemberController:
         members = self._mem_model.get_all_members()
         self._view.displayMembers(members)
 
+    def load_defaulters(self):
+        fine_books = self._book_model.get_defaulter_books()
+        members = []
+        member_codes = []
+        for f in fine_books:
+            if f["member_code"] != 0:
+                if f["member_code"] not in member_codes:
+                    m = self._mem_model.get_member(f["member_code"])
+                    member_codes.append(f["member_code"])
+                    members.append(m)
+        self._view.displayDefaulters(members)
+
     def _connectSignalsAndSlots(self):
         self._view.new_mem["submit_btn"].clicked.connect(self.add_mem)
         self._view.member_roster["load"].clicked.connect(self.load_all_mem_details)
+        self._view.defaulters["load"].clicked.connect(self.load_defaulters)

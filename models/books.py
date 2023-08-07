@@ -121,9 +121,9 @@ class Books(Model):
         result = self.cursor.fetchall()
         return self._parse_result(result)
 
-    def get_defaulter_books(self, member_code: int):
+    def get_defaulter_books(self) -> list[dict]:
         self.cursor.execute(
-            f"select * from {self.name} where datediff(curdate(), doi) >= 7"
+            f"select * from {self.name} where datediff(curdate(), doi) >= 1"
         )
         result = self.cursor.fetchall()
         return self._parse_result(result)
