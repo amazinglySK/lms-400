@@ -40,7 +40,29 @@ class MemberController:
                     members.append(m)
         self._view.displayDefaulters(members)
 
+    def search_member(self):
+        name = self._view.edit_mem["mem_search"].text().strip()
+        if name in ["", " "]:  # checks for blank strings
+            return
+        m = self._mem_model.search_member_by_name(name)
+        self._view.display_mem_search_result(m)
+
+    def edit_member(self):
+        d = self._view.get_edit_details()
+        mem_code = self._view.edit_mem["selected_member_code"]
+        # TODO : Apply some data sanitation method
+        try:
+            self._mem_model.update_details(d, mem_code)
+            self._view.show_msg("Details updated successfully")
+            self._view.clear_update_line_edits()
+            self._view.edit_mem["stacked_wig"].setCurrentIndex(0)
+        except Exception as err:
+            print(err)
+            self._view.show_msg("Something went wrong")
+
     def _connectSignalsAndSlots(self):
         self._view.new_mem["submit_btn"].clicked.connect(self.add_mem)
         self._view.member_roster["load"].clicked.connect(self.load_all_mem_details)
         self._view.defaulters["load"].clicked.connect(self.load_defaulters)
+        self._view.edit_mem["mem_search_btn"].clicked.connect(self.search_member)
+        self._view.edit_mem["mem_update_btn"].clicked.connect(self.edit_member)

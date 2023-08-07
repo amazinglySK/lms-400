@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QScrollArea,
     QMessageBox,
+    QStackedWidget,
 )
 
 from PyQt5.QtGui import QFont
@@ -51,7 +52,33 @@ class MemberWindow(QMainWindow):
         self.defaulters["vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
         self.defaulters["load"] = self.findChild(QPushButton, "DefaulterLoadButton")
         self.defaulters["widget"].setLayout(self.defaulters["vbox"])
+        # TODO : Add area to show all the pending books in the library
         self.defaulters["scroll_area"].setWidget(self.defaulters["widget"])
+
+        # ============================================================
+
+        # EDIT MEMBER TAB
+
+        self.edit_mem = {}
+        self.edit_mem["mem_search"] = self.findChild(QLineEdit, "MemberSearchLine")
+        # TODO : Add a button to go back to the search page
+        self.edit_mem["mem_search_btn"] = self.findChild(
+            QPushButton, "MemberSearchButton"
+        )
+        self.edit_mem["mem_update_btn"] = self.findChild(QPushButton, "SubmitButton")
+        self.edit_mem["name"] = self.findChild(QLineEdit, "NameLine")
+        self.edit_mem["phone"] = self.findChild(QLineEdit, "PhoneLine")
+        self.edit_mem["address"] = self.findChild(QLineEdit, "AddressLine")
+
+        self.edit_mem["scroll_area"] = self.findChild(QScrollArea, "SearchResultArea")
+        self.edit_mem["widget"] = QWidget()
+        self.edit_mem["vbox"] = QVBoxLayout()
+        self.edit_mem["vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.edit_mem["widget"].setLayout(self.edit_mem["vbox"])
+        self.edit_mem["scroll_area"].setWidget(self.edit_mem["widget"])
+
+        self.edit_mem["stacked_wig"] = self.findChild(QStackedWidget, "EditMemberStack")
+        self.edit_mem["selected_member_code"] = 0
 
         # ============================================================
 
@@ -66,6 +93,12 @@ class MemberWindow(QMainWindow):
         for m in members:
             c = self._memberCard(m["name"], m["phone"])
             self.defaulters["vbox"].addWidget(c)
+
+    def display_mem_search_result(self, members: dict):
+        self._clearLayout(self.edit_mem["vbox"])
+        for m in members:
+            c = self._memberCardMod(m)
+            self.edit_mem["vbox"].addWidget(c)
 
     def _clearLayout(self, layout: QVBoxLayout):
         for i in reversed(range(layout.count())):
@@ -89,6 +122,40 @@ class MemberWindow(QMainWindow):
 
         return card
 
+    def _memberCardMod(self, details: dict) -> QWidget:
+        card = QWidget()
+
+        font = QFont("Bahnschrift", 12)
+        name = QLabel(f"Name : {details['name']}", card)
+        name.setFont(font)
+        phone = QLabel(f"Phone : {details['phone']}", card)
+        phone.setFont(font)
+        id = QLabel(f"Id : {details['member_code']}", card)
+        id.setFont(font)
+        lock_btn = QPushButton("Lock", card)
+        lock_btn.setFont(font)
+
+        def lock_func():
+            self.edit_mem["selected_member_code"] = details["member_code"]
+            self.edit_mem["stacked_wig"].setCurrentIndex(1)
+            self.edit_mem["name"].setText(details["name"])
+            self.edit_mem["address"].setText(details["address"])
+            self.edit_mem["phone"].setText(details["phone"])
+
+        lock_btn.clicked.connect(lock_func)
+        lock_btn.setFixedWidth(80)
+
+        card_vbox = QVBoxLayout()
+        card_vbox.addWidget(name, 1)
+        card_vbox.addWidget(phone, 1)
+        card_vbox.addWidget(id, 1)
+        card_vbox.addWidget(lock_btn, 1)
+        card.setLayout(card_vbox)
+        card.setFixedHeight(120)
+        card.setStyleSheet("background-color : red;")
+
+        return card
+
     def show_msg(self, text: str):
         msg = QMessageBox()
         msg.setText(text)
@@ -100,11 +167,25 @@ class MemberWindow(QMainWindow):
     def clearLineEdits(self):
         for k, v in self.new_mem.items():
             if k.endswith("LE"):
-                v.setText("")
+                v.clear()
+
+    def clear_update_line_edits(self):
+        self.edit_mem["name"].clear()
+        self.edit_mem["address"].clear()
+        self.edit_mem["phone"].clear()
+        self.edit_mem["mem_search"].clear()
+
+        self._clearLayout(self.edit_mem["vbox"])
 
     def get_mem_details(self):
         name = self.new_mem["nameLE"].text()
         address = self.new_mem["addLE"].text()
         phone = self.new_mem["phoneLE"].text()
 
+        return {"name": name, "address": address, "phone": phone}
+
+    def get_edit_details(self):
+        name = self.edit_mem["name"].text()
+        address = self.edit_mem["address"].text()
+        phone = self.edit_mem["phone"].text()
         return {"name": name, "address": address, "phone": phone}

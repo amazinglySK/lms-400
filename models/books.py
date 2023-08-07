@@ -122,6 +122,7 @@ class Books(Model):
         return self._parse_result(result)
 
     def get_defaulter_books(self) -> list[dict]:
+        # TODO : Probably use some kind of aggregate function to get unique defaulters
         self.cursor.execute(
             f"select * from {self.name} where datediff(curdate(), doi) >= 1"
         )

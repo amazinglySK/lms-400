@@ -23,7 +23,7 @@ Operations :
 -   [x] Addition of records to library file
 -   [ ] Modification of records of library file
 -   [x] Addition of records to member file
--   [ ] Modification of address and phone number of existing member in member file.
+-   [x] Modification of address and phone number of existing member in member file.
 -   [x] Issue of book
 -   [ ] Return of books - <= 7 days = 0.5 / day - <= 15 days = 1 / day 15+ days = 2/day
 -   [x] Searching for availability of a particular book in the library
