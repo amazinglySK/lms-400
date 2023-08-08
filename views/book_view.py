@@ -13,8 +13,10 @@ from PyQt5.QtWidgets import (
 )
 
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt
 from PyQt5 import uic
+
+from components.components import ScrollBoxContainer
 
 
 class BookWindow(QMainWindow):
@@ -40,17 +42,8 @@ class BookWindow(QMainWindow):
             QScrollArea, "AvailableBooksScrollArea"
         )
 
-        self.booksTab["all_books_widget"] = QWidget()
-        self.booksTab["all_books_vbox"] = QVBoxLayout()
-        self.booksTab["all_books_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.booksTab["all_books_widget"].setLayout(self.booksTab["all_books_vbox"])
-
-        self.booksTab["available_books_widget"] = QWidget()
-        self.booksTab["available_books_vbox"] = QVBoxLayout()
-        self.booksTab["available_books_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.booksTab["available_books_widget"].setLayout(
-            self.booksTab["available_books_vbox"]
-        )
+        self.booksTab["all_books_widget"] = ScrollBoxContainer()
+        self.booksTab["available_books_widget"] = ScrollBoxContainer()
 
         self.booksTab["all_books"].setWidget(self.booksTab["all_books_widget"])
         self.booksTab["available_books"].setWidget(
@@ -80,17 +73,9 @@ class BookWindow(QMainWindow):
         )
         self.issueTab["books_area"] = self.findChild(QScrollArea, "SearchResultBox")
 
-        self.issueTab["members_area_widget"] = QWidget()
-        self.issueTab["members_area_vbox"] = QVBoxLayout()
-        self.issueTab["members_area_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.issueTab["members_area_widget"].setLayout(
-            self.issueTab["members_area_vbox"]
-        )
+        self.issueTab["members_area_widget"] = ScrollBoxContainer()
 
-        self.issueTab["books_area_widget"] = QWidget()
-        self.issueTab["books_area_vbox"] = QVBoxLayout()
-        self.issueTab["books_area_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.issueTab["books_area_widget"].setLayout(self.issueTab["books_area_vbox"])
+        self.issueTab["books_area_widget"] = ScrollBoxContainer()
 
         self.issueTab["books_area"].setWidget(self.issueTab["books_area_widget"])
         self.issueTab["members_area"].setWidget(self.issueTab["members_area_widget"])
@@ -113,20 +98,12 @@ class BookWindow(QMainWindow):
         self.returnTab["members_area"] = self.findChild(
             QScrollArea, "ReturnMemberSearchResults"
         )
+        self.returnTab["books_area"] = self.findChild(QScrollArea, "IssuedBooksBox")
 
-        self.returnTab["members_area_widget"] = QWidget()
-        self.returnTab["members_area_vbox"] = QVBoxLayout()
-        self.returnTab["members_area_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.returnTab["members_area_widget"].setLayout(
-            self.returnTab["members_area_vbox"]
-        )
+        self.returnTab["members_area_widget"] = ScrollBoxContainer()
         self.returnTab["members_area"].setWidget(self.returnTab["members_area_widget"])
 
-        self.returnTab["books_area"] = self.findChild(QScrollArea, "IssuedBooksBox")
-        self.returnTab["books_area_widget"] = QWidget()
-        self.returnTab["books_area_vbox"] = QVBoxLayout()
-        self.returnTab["books_area_vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.returnTab["books_area_widget"].setLayout(self.returnTab["books_area_vbox"])
+        self.returnTab["books_area_widget"] = ScrollBoxContainer()
         self.returnTab["books_area"].setWidget(self.returnTab["books_area_widget"])
 
         self.returnTab["selected_member_code"] = 0
