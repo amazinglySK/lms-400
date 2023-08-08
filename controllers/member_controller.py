@@ -1,4 +1,4 @@
-from member_view import MemberWindow
+from views.member_view import MemberWindow
 from models.books import Books
 from models.member import Member
 

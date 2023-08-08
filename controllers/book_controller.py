@@ -1,12 +1,10 @@
-import book_view
+from views.book_view import BookWindow
 from models.books import Books
 from models.member import Member, MemberExceedingLimit
 
 
 class BookController:
-    def __init__(
-        self, book_model: Books, member_model: Member, view: book_view.BookWindow
-    ):
+    def __init__(self, book_model: Books, member_model: Member, view: BookWindow):
         self._book = book_model
         self._member = member_model
         self._view = view

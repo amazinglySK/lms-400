@@ -3,10 +3,10 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QLabel, QPus
 import mysql.connector
 import sys
 
-import member_view
-import member_controller
-import book_view
-import book_controller
+from views.book_view import BookWindow
+from views.member_view import MemberWindow
+from controllers.book_controller import BookController
+from controllers.member_controller import MemberController
 from models.books import Books
 from models.member import Member
 
@@ -29,18 +29,14 @@ class DashboardView(QMainWindow):
         self.books_button.clicked.connect(self._redirect_books)
 
     def _redirect_member(self):
-        self.w = member_view.MemberWindow()
-        self.w_controller = member_controller.MemberController(
-            self.book_model, self.member_model, self.w
-        )
+        self.w = MemberWindow()
+        self.w_controller = MemberController(self.book_model, self.member_model, self.w)
         self.w.show()
         self.close()
 
     def _redirect_books(self):
-        self.w = book_view.BookWindow()
-        self.w_controller = book_controller.BookController(
-            self.book_model, self.member_model, self.w
-        )
+        self.w = BookWindow()
+        self.w_controller = BookController(self.book_model, self.member_model, self.w)
         self.w.show()
         self.close()
 
