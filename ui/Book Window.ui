@@ -383,8 +383,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>715</width>
-              <height>148</height>
+              <width>98</width>
+              <height>28</height>
              </rect>
             </property>
            </widget>
@@ -434,8 +434,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>715</width>
-              <height>147</height>
+              <width>98</width>
+              <height>28</height>
              </rect>
             </property>
            </widget>
@@ -469,7 +469,7 @@
      <attribute name="title">
       <string>Return Book</string>
      </attribute>
-     <widget class="QStackedWidget" name="stackedWidget">
+     <widget class="QStackedWidget" name="ReturnStack">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -477,6 +477,9 @@
         <width>701</width>
         <height>491</height>
        </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QLabel" name="label_8">
@@ -507,14 +510,14 @@
           <x>110</x>
           <y>80</y>
           <width>501</width>
-          <height>381</height>
+          <height>341</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="ReturnMemberSearchBox">
              <property name="font">
               <font>
                <family>Bahnschrift</family>
@@ -524,7 +527,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="ReturnMemberSearchButton">
              <property name="font">
               <font>
                <family>Bahnschrift</family>
@@ -539,7 +542,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QScrollArea" name="scrollArea">
+          <widget class="QScrollArea" name="ReturnMemberSearchResults">
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -549,7 +552,7 @@
               <x>0</x>
               <y>0</y>
               <width>497</width>
-              <height>342</height>
+              <height>302</height>
              </rect>
             </property>
            </widget>
@@ -558,7 +561,91 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_2"/>
+      <widget class="QWidget" name="page_2">
+       <widget class="QScrollArea" name="IssuedBooksBox">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>160</y>
+          <width>581</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_6">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>579</width>
+           <height>269</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="NameLabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>20</y>
+          <width>581</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>120</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Issued books</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="ReturnDoneButton">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>120</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bahnschrift</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Done</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </widget>
    </widget>

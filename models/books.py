@@ -26,6 +26,7 @@ class Books(Model):
             "member_code",
             "doi",
         ]
+        self.max_days = 1
 
         try:
             self.cursor.execute(f"select * from {self.name}")
@@ -89,27 +90,19 @@ class Books(Model):
             },
         )
 
-    def _calc_fine(self, delta):
-        d = 0
+    def _calc_fine(self, delta: int):
         fine = 0
-        while delta != 0:
-            if d <= 7:
-                fine += 0.5
-            if d > 7 and d <= 15:
-                fine += 1
-            else:
-                fine += 2
-            delta -= 1
-            d += 1
+        if delta > 0 and delta < self.max_days:
+            fine = delta * 0.5
+        elif delta >= self.max_days and delta < 15:
+            fine = delta * 1
+        else:
+            fine = delta * 2
         return fine
 
     def return_book(self, book_code: int):
-        book = self.get_book(book_code)
         # Returning the book
-        self.modify_book(book["book_code"], {"member_code": 0})
-        delta = self.book["doi"] - date.today()
-        fine = self._calc_fine(delta)
-        return fine
+        self.modify_book(book_code, {"member_code": 0})
 
     def get_subject_books(self, subcode: str):
         self.cursor.execute(f"select * from {self.name} where sub_code = '{subcode}'")
@@ -121,10 +114,22 @@ class Books(Model):
         result = self.cursor.fetchall()
         return self._parse_result(result)
 
+    def get_issued_books_by_member(self, member_code: int):
+        self.cursor.execute(
+            f"select * from {self.name} where member_code = {member_code}"
+        )
+        books = self.cursor.fetchall()
+        books = self._parse_result(books)
+        for book in books:
+            delta = date.today() - book["doi"]
+            fine = self._calc_fine(delta.days)
+            book["fine"] = fine
+        return books
+
     def get_defaulter_books(self) -> list[dict]:
         # TODO : Probably use some kind of aggregate function to get unique defaulters
         self.cursor.execute(
-            f"select * from {self.name} where datediff(curdate(), doi) >= 1"
+            f"select * from {self.name} where datediff(curdate(), doi) >= {self.max_days} and member_code != 0"
         )
         result = self.cursor.fetchall()
         return self._parse_result(result)

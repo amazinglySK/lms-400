@@ -86,3 +86,7 @@ class Member(Model):
             raise MemberExceedingLimit
 
         self.update_details({"no_issued": m["no_issued"] + 1}, member_code)
+
+    def return_book(self, member_code : int) : 
+        m = self.get_member(member_code)
+        self.update_details({"no_issued": m["no_issued"] - 1}, member_code)

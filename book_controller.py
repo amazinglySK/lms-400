@@ -64,6 +64,35 @@ class BookController:
         d = self._book.get_avail_books()
         self._view.display_books(d, all=False)
 
+    def search_member_return(self):
+        name = self._view.returnTab["member_search"].text().strip()
+        if name == "":
+            return
+        m = self._member.search_member_by_name(name)
+        self._view.display_member_results_return(m)
+        self._connectSignalsToNewlyAddedComp()
+
+    def load_issued_books(self):
+        mem_code = self._view.returnTab["selected_member_code"]
+        books = self._book.get_issued_books_by_member(mem_code)
+        self._view.display_books_results_return(books)
+        self._connectSignalsToNewlyAddedComp()
+        self._view.returnTab["stacked_wig"].setCurrentIndex(1)
+
+    def return_book(self):
+        book_code = self._view.returnTab["selected_book_code"]
+        mem_code = self._view.returnTab["selected_member_code"]
+        try:
+            self._book.return_book(book_code)
+            self._member.return_book(mem_code)
+            self._view.show_msg("Returned successfully")
+        except:
+            self._view.show_msg("Something went wrong")
+
+    def done_returning(self):
+        self._view.clear_return_window()
+        self._view.returnTab["stacked_wig"].setCurrentIndex(0)
+
     def _connectSignalsAndSlots(self):
         self._view.newBookTab["submit_btn"].clicked.connect(self.new_book)
         self._view.booksTab["get_all_books"].clicked.connect(self.get_all_books)
@@ -71,3 +100,14 @@ class BookController:
         self._view.issueTab["member_search_btn"].clicked.connect(self.search_member)
         self._view.issueTab["book_search_btn"].clicked.connect(self.search_book)
         self._view.issueTab["issue_btn"].clicked.connect(self.issue_book)
+        self._view.returnTab["member_search_btn"].clicked.connect(
+            self.search_member_return
+        )
+        self._view.returnTab["done_btn"].clicked.connect(self.done_returning)
+
+    def _connectSignalsToNewlyAddedComp(self):
+        for b in self._view.returnTab["member_btns"]:
+            b.clicked.connect(self.load_issued_books)
+
+        for b in self._view.returnTab["book_btns"]:
+            b.clicked.connect(self.return_book)
