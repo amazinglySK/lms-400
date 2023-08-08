@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QFont
 from PyQt5 import uic
 
-from components.components import ScrollBoxContainer
+from components import ScrollBoxContainer
 
 
 class BookWindow(QMainWindow):

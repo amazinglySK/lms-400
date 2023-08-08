@@ -12,8 +12,10 @@ from PyQt5.QtWidgets import (
 
 from PyQt5.QtGui import QFont
 from PyQt5 import uic
+from PyQt5 import QtCore
 
-from components.components import ScrollBoxContainer
+from components import ScrollBoxContainer
+from components import MemberCard
 
 
 class MemberWindow(QMainWindow):
@@ -75,72 +77,28 @@ class MemberWindow(QMainWindow):
     def displayMembers(self, members: dict):
         self.member_roster["widget"].clear()
         for m in members:
-            c = self._memberCard(m["name"], m["phone"])
+            c = MemberCard(m)
             self.member_roster["widget"].add_card(c)
 
     def displayDefaulters(self, members: dict):
         self.defaulters["widget"].clear()
         for m in members:
-            c = self._memberCard(m["name"], m["phone"])
+            c = MemberCard(m)
             self.defaulters["widget"].add_card(c)
 
     def display_mem_search_result(self, members: dict):
         self.edit_mem["widget"].clear()
         for m in members:
-            c = self._memberCardMod(m)
+            c = MemberCard(m, "buttoned")
+            c.lock_btn.clicked.connect(lambda _: self.lock_func(m))
             self.edit_mem["widget"].add_card(c)
 
-    def _memberCard(self, name: str, phone: str) -> QWidget:
-        card = QWidget()
-
-        font = QFont("Bahnschrift", 12)
-        name = QLabel(f"Name : {name}", card)
-        name.setFont(font)
-        phone = QLabel(f"Phone : {phone}", card)
-        phone.setFont(font)
-
-        card_vbox = QVBoxLayout()
-        card_vbox.addWidget(phone, 1)
-        card_vbox.addWidget(name, 1)
-        card.setLayout(card_vbox)
-        card.setFixedHeight(80)
-        card.setStyleSheet("background-color : red;")
-
-        return card
-
-    def _memberCardMod(self, details: dict) -> QWidget:
-        card = QWidget()
-
-        font = QFont("Bahnschrift", 12)
-        name = QLabel(f"Name : {details['name']}", card)
-        name.setFont(font)
-        phone = QLabel(f"Phone : {details['phone']}", card)
-        phone.setFont(font)
-        id = QLabel(f"Id : {details['member_code']}", card)
-        id.setFont(font)
-        lock_btn = QPushButton("Lock", card)
-        lock_btn.setFont(font)
-
-        def lock_func():
-            self.edit_mem["selected_member_code"] = details["member_code"]
-            self.edit_mem["stacked_wig"].setCurrentIndex(1)
-            self.edit_mem["name"].setText(details["name"])
-            self.edit_mem["address"].setText(details["address"])
-            self.edit_mem["phone"].setText(details["phone"])
-
-        lock_btn.clicked.connect(lock_func)
-        lock_btn.setFixedWidth(80)
-
-        card_vbox = QVBoxLayout()
-        card_vbox.addWidget(name, 1)
-        card_vbox.addWidget(phone, 1)
-        card_vbox.addWidget(id, 1)
-        card_vbox.addWidget(lock_btn, 1)
-        card.setLayout(card_vbox)
-        card.setFixedHeight(120)
-        card.setStyleSheet("background-color : red;")
-
-        return card
+    def lock_func(self, details: dict):
+        self.edit_mem["selected_member_code"] = details["member_code"]
+        self.edit_mem["stacked_wig"].setCurrentIndex(1)
+        self.edit_mem["name"].setText(details["name"])
+        self.edit_mem["address"].setText(details["address"])
+        self.edit_mem["phone"].setText(details["phone"])
 
     def show_msg(self, text: str):
         msg = QMessageBox()
