@@ -13,7 +13,6 @@ from PyQt5.QtWidgets import (
 )
 
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
 from PyQt5 import uic
 
 from components.components import ScrollBoxContainer
@@ -74,7 +73,6 @@ class BookWindow(QMainWindow):
         self.issueTab["books_area"] = self.findChild(QScrollArea, "SearchResultBox")
 
         self.issueTab["members_area_widget"] = ScrollBoxContainer()
-
         self.issueTab["books_area_widget"] = ScrollBoxContainer()
 
         self.issueTab["books_area"].setWidget(self.issueTab["books_area_widget"])
@@ -111,10 +109,6 @@ class BookWindow(QMainWindow):
         self.returnTab["member_btns"] = []
         self.returnTab["book_btns"] = []
 
-    def _clearLayout(self, layout: QVBoxLayout):
-        for i in reversed(range(layout.count())):
-            layout.itemAt(i).widget().setParent(None)
-
     def get_book_details(self):
         title = self.newBookTab["title"].text()
         author = self.newBookTab["author"].text()
@@ -132,35 +126,35 @@ class BookWindow(QMainWindow):
         return d
 
     def display_member_results(self, details: list[dict]):
-        self._clearLayout(self.issueTab["members_area_vbox"])
+        self.issueTab["members_area_widget"].clear()
         for d in details:
             c = self._memberCard(d)
-            self.issueTab["members_area_vbox"].addWidget(c)
+            self.issueTab["members_area_widget"].add_card(c)
 
     def display_member_results_return(self, details: list[dict]):
-        self._clearLayout(self.returnTab["members_area_vbox"])
+        self.returnTab["member_area_widget"].clear()
         for d in details:
             c = self._memberCardMod(d)
-            self.returnTab["members_area_vbox"].addWidget(c)
+            self.returnTab["members_area_widget"].add_card(c)
 
     def display_books_results(self, details: list):
-        self._clearLayout(self.issueTab["books_area_vbox"])
+        self.issueTab["books_area_widget"].clear()
         for d in details:
             b = self._bookCard(d, display_avail=True, lock_btn=True)
-            self.issueTab["books_area_vbox"].addWidget(b)
+            self.issueTab["books_area_widget"].add_card(b)
 
     def display_books_results_return(self, details: list):
-        self._clearLayout(self.returnTab["books_area_vbox"])
+        self.returnTab["books_area_vbox"].clear()
         for d in details:
             b = self._bookCardMod(d)
-            self.returnTab["books_area_vbox"].addWidget(b)
+            self.returnTab["books_area_widget"].add_card(b)
 
     def display_books(self, details: list, all=True):
-        comp = "all_books_vbox" if all else "available_books_vbox"
-        self._clearLayout(self.booksTab[comp])
+        comp = "all_books_widget" if all else "available_books_widget"
+        self.booksTab[comp].clear()
         for d in details:
             b = self._bookCard(d)
-            self.booksTab[comp].addWidget(b)
+            self.booksTab[comp].add_card(b)
 
     def _memberCard(self, details: dict) -> QWidget:
         card = QWidget()
@@ -316,13 +310,13 @@ class BookWindow(QMainWindow):
     def clear_issue_lines(self):
         self.issueTab["member_search"].clear()
         self.issueTab["book_search"].clear()
-        self._clearLayout(self.issueTab["members_area_vbox"])
-        self._clearLayout(self.issueTab["books_area_vbox"])
+        self.issueTab["members_area_widget"].clear()
+        self.issueTab["books_area_widget"].clear()
 
     def clear_return_window(self):
         self.returnTab["member_search"].clear()
         self.returnTab["name"].clear()
-        self._clearLayout(self.returnTab["members_area_vbox"])
+        self.returnTab["members_area_widget"].clear()
+        self.returnTab["books_area_widget"].clear()
         self.returnTab["member_btns"] = []
         self.returnTab["book_btns"] = []
-        self._clearLayout(self.returnTab["books_area_vbox"])
