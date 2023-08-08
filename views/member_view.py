@@ -15,6 +15,8 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from PyQt5 import uic
 
+from components.components import ScrollBoxContainer
+
 
 class MemberWindow(QMainWindow):
     def __init__(self):
@@ -31,15 +33,11 @@ class MemberWindow(QMainWindow):
 
         # MEMBER ROSTER TAB
         self.member_roster = {}
+        self.member_roster["load"] = self.findChild(QPushButton, "LoadButton")
         self.member_roster["scroll_area"] = self.findChild(
             QScrollArea, "MembersListArea"
         )
-        self.member_roster["widget"] = QWidget()
-        self.member_roster["vbox"] = QVBoxLayout()
-        self.member_roster["vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.member_roster["load"] = self.findChild(QPushButton, "LoadButton")
-        self.member_roster["widget"].setLayout(self.member_roster["vbox"])
-
+        self.member_roster["widget"] = ScrollBoxContainer()
         self.member_roster["scroll_area"].setWidget(self.member_roster["widget"])
         # ============================================================
 
@@ -47,11 +45,8 @@ class MemberWindow(QMainWindow):
 
         self.defaulters = {}
         self.defaulters["scroll_area"] = self.findChild(QScrollArea, "DefaultersArea")
-        self.defaulters["widget"] = QWidget()
-        self.defaulters["vbox"] = QVBoxLayout()
-        self.defaulters["vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
+        self.defaulters["widget"] = ScrollBoxContainer()
         self.defaulters["load"] = self.findChild(QPushButton, "DefaulterLoadButton")
-        self.defaulters["widget"].setLayout(self.defaulters["vbox"])
         # TODO : Add area to show all the pending books in the library
         self.defaulters["scroll_area"].setWidget(self.defaulters["widget"])
 
@@ -71,10 +66,7 @@ class MemberWindow(QMainWindow):
         self.edit_mem["address"] = self.findChild(QLineEdit, "AddressLine")
 
         self.edit_mem["scroll_area"] = self.findChild(QScrollArea, "SearchResultArea")
-        self.edit_mem["widget"] = QWidget()
-        self.edit_mem["vbox"] = QVBoxLayout()
-        self.edit_mem["vbox"].setAlignment(Qt.AlignmentFlag.AlignTop)
-        self.edit_mem["widget"].setLayout(self.edit_mem["vbox"])
+        self.edit_mem["widget"] = ScrollBoxContainer()
         self.edit_mem["scroll_area"].setWidget(self.edit_mem["widget"])
 
         self.edit_mem["stacked_wig"] = self.findChild(QStackedWidget, "EditMemberStack")
@@ -83,26 +75,22 @@ class MemberWindow(QMainWindow):
         # ============================================================
 
     def displayMembers(self, members: dict):
-        self._clearLayout(self.member_roster["vbox"])
+        self.member_roster["widget"].clear()
         for m in members:
             c = self._memberCard(m["name"], m["phone"])
-            self.member_roster["vbox"].addWidget(c)
+            self.member_roster["widget"].add_card(c)
 
     def displayDefaulters(self, members: dict):
-        self._clearLayout(self.defaulters["vbox"])
+        self.defaulters["widget"].clear()
         for m in members:
             c = self._memberCard(m["name"], m["phone"])
-            self.defaulters["vbox"].addWidget(c)
+            self.defaulters["widget"].add_card(c)
 
     def display_mem_search_result(self, members: dict):
-        self._clearLayout(self.edit_mem["vbox"])
+        self.edit_mem["widget"].clear()
         for m in members:
             c = self._memberCardMod(m)
-            self.edit_mem["vbox"].addWidget(c)
-
-    def _clearLayout(self, layout: QVBoxLayout):
-        for i in reversed(range(layout.count())):
-            layout.itemAt(i).widget().setParent(None)
+            self.edit_mem["widget"].add_card(c)
 
     def _memberCard(self, name: str, phone: str) -> QWidget:
         card = QWidget()
@@ -174,8 +162,7 @@ class MemberWindow(QMainWindow):
         self.edit_mem["address"].clear()
         self.edit_mem["phone"].clear()
         self.edit_mem["mem_search"].clear()
-
-        self._clearLayout(self.edit_mem["vbox"])
+        self.edit_mem["widget"].clear()
 
     def get_mem_details(self):
         name = self.new_mem["nameLE"].text()
