@@ -1,18 +1,15 @@
 from PyQt5.QtWidgets import (
-    QWidget,
     QComboBox,
     QLineEdit,
     QMainWindow,
     QPushButton,
     QSpinBox,
     QLabel,
-    QVBoxLayout,
     QScrollArea,
     QMessageBox,
     QStackedWidget,
 )
 
-from PyQt5.QtGui import QFont
 from PyQt5 import uic
 
 from components import ScrollBoxContainer
@@ -26,90 +23,73 @@ class BookWindow(QMainWindow):
         uic.loadUi("./ui/Book Window.ui", self)
         # TODO : Change the QLabels for displaying message to QMessageBox
         # NEW BOOK TAB
-        self.newBookTab = {}
-        self.newBookTab["submit_btn"] = self.findChild(QPushButton, "NewBookButton")
-        self.newBookTab["title"] = self.findChild(QLineEdit, "Title")
-        self.newBookTab["author"] = self.findChild(QLineEdit, "Author")
-        self.newBookTab["publisher"] = self.findChild(QLineEdit, "Publisher")
-        self.newBookTab["price"] = self.findChild(QSpinBox, "Price")
-        self.newBookTab["subject"] = self.findChild(QComboBox, "Subject")
+        self.newBookTab = {
+            "submit_btn": self.findChild(QPushButton, "NewBookButton"),
+            "title": self.findChild(QLineEdit, "Title"),
+            "author": self.findChild(QLineEdit, "Author"),
+            "publisher": self.findChild(QLineEdit, "Publisher"),
+            "price": self.findChild(QSpinBox, "Price"),
+            "subject": self.findChild(QComboBox, "Subject"),
+        }
 
         # ==========================================================================
 
         # ALL BOOKS TAB
-        self.booksTab = {}
-        self.booksTab["all_books"] = self.findChild(QScrollArea, "AllBooksScrollArea")
-        self.booksTab["available_books"] = self.findChild(
-            QScrollArea, "AvailableBooksScrollArea"
-        )
-
-        self.booksTab["all_books_widget"] = ScrollBoxContainer()
-        self.booksTab["available_books_widget"] = ScrollBoxContainer()
+        self.booksTab = {
+            "all_books": self.findChild(QScrollArea, "AllBooksScrollArea"),
+            "available_books": self.findChild(QScrollArea, "AvailableBooksScrollArea"),
+            "all_books_widget": ScrollBoxContainer(),
+            "available_books_widget": ScrollBoxContainer(),
+            "get_all_books": self.findChild(QPushButton, "AllBooksButton"),
+            "get_avail_books": self.findChild(QPushButton, "AvailableBooksButton"),
+        }
 
         self.booksTab["all_books"].setWidget(self.booksTab["all_books_widget"])
         self.booksTab["available_books"].setWidget(
             self.booksTab["available_books_widget"]
         )
 
-        self.booksTab["get_all_books"] = self.findChild(QPushButton, "AllBooksButton")
-        self.booksTab["get_avail_books"] = self.findChild(
-            QPushButton, "AvailableBooksButton"
-        )
-
         # ==========================================================================
 
         # ISSUE BOOKS TAB
-        self.issueTab = {}
-
-        self.issueTab["member_search"] = self.findChild(QLineEdit, "MemberSearchBox")
-        self.issueTab["book_search"] = self.findChild(QLineEdit, "SearchBox")
-        self.issueTab["member_search_btn"] = self.findChild(
-            QPushButton, "MemberSearchButton"
-        )
-        self.issueTab["book_search_btn"] = self.findChild(QPushButton, "SearchButton")
-        self.issueTab["issue_btn"] = self.findChild(QPushButton, "IssueButton")
-
-        self.issueTab["members_area"] = self.findChild(
-            QScrollArea, "MemberSearchResultBox"
-        )
-        self.issueTab["books_area"] = self.findChild(QScrollArea, "SearchResultBox")
-
-        self.issueTab["members_area_widget"] = ScrollBoxContainer()
-        self.issueTab["books_area_widget"] = ScrollBoxContainer()
+        self.issueTab = {
+            "member_search": self.findChild(QLineEdit, "MemberSearchBox"),
+            "book_search": self.findChild(QLineEdit, "SearchBox"),
+            "member_search_btn": self.findChild(QPushButton, "MemberSearchButton"),
+            "book_search_btn": self.findChild(QPushButton, "SearchButton"),
+            "issue_btn": self.findChild(QPushButton, "IssueButton"),
+            "members_area": self.findChild(QScrollArea, "MemberSearchResultBox"),
+            "books_area": self.findChild(QScrollArea, "SearchResultBox"),
+            "members_area_widget": ScrollBoxContainer(),
+            "books_area_widget": ScrollBoxContainer(),
+            "selected_member_code": 0,
+            "selected_book_code": 0,
+        }
 
         self.issueTab["books_area"].setWidget(self.issueTab["books_area_widget"])
         self.issueTab["members_area"].setWidget(self.issueTab["members_area_widget"])
-        self.issueTab["selected_member_code"] = 0
-        self.issueTab["selected_book_code"] = 0
         # ==========================================================================
 
         # RETURN BOOKS TAB
-        self.returnTab = {}
-        self.returnTab["name"] = self.findChild(QLabel, "NameLabel")
-        self.returnTab["done_btn"] = self.findChild(QPushButton, "ReturnDoneButton")
-        self.returnTab["stacked_wig"] = self.findChild(QStackedWidget, "ReturnStack")
-        self.returnTab["member_search"] = self.findChild(
-            QLineEdit, "ReturnMemberSearchBox"
-        )
-        self.returnTab["member_search_btn"] = self.findChild(
-            QPushButton, "ReturnMemberSearchButton"
-        )
-
-        self.returnTab["members_area"] = self.findChild(
-            QScrollArea, "ReturnMemberSearchResults"
-        )
-        self.returnTab["books_area"] = self.findChild(QScrollArea, "IssuedBooksBox")
-
-        self.returnTab["members_area_widget"] = ScrollBoxContainer()
+        self.returnTab = {
+            "name": self.findChild(QLabel, "NameLabel"),
+            "done_btn": self.findChild(QPushButton, "ReturnDoneButton"),
+            "stacked_wig": self.findChild(QStackedWidget, "ReturnStack"),
+            "member_search": self.findChild(QLineEdit, "ReturnMemberSearchBox"),
+            "member_search_btn": self.findChild(
+                QPushButton, "ReturnMemberSearchButton"
+            ),
+            "members_area": self.findChild(QScrollArea, "ReturnMemberSearchResults"),
+            "books_area": self.findChild(QScrollArea, "IssuedBooksBox"),
+            "members_area_widget": ScrollBoxContainer(),
+            "books_area_widget": ScrollBoxContainer(),
+            "selected_member_code": 0,
+            "selected_book_code": 0,
+            "member_btns": [],
+            "book_btns": [],
+        }
         self.returnTab["members_area"].setWidget(self.returnTab["members_area_widget"])
-
-        self.returnTab["books_area_widget"] = ScrollBoxContainer()
         self.returnTab["books_area"].setWidget(self.returnTab["books_area_widget"])
-
-        self.returnTab["selected_member_code"] = 0
-        self.returnTab["selected_book_code"] = 0
-        self.returnTab["member_btns"] = []
-        self.returnTab["book_btns"] = []
 
     def get_book_details(self):
         title = self.newBookTab["title"].text()

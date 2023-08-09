@@ -2,17 +2,11 @@ from PyQt5.QtWidgets import (
     QMainWindow,
     QPushButton,
     QLineEdit,
-    QLabel,
-    QWidget,
-    QVBoxLayout,
     QScrollArea,
     QMessageBox,
     QStackedWidget,
 )
-
-from PyQt5.QtGui import QFont
 from PyQt5 import uic
-from PyQt5 import QtCore
 
 from components import ScrollBoxContainer
 from components import MemberCard
@@ -24,29 +18,30 @@ class MemberWindow(QMainWindow):
         uic.loadUi("./ui/Member Window.ui", self)
 
         # NEW MEMBER TAB
-        self.new_mem = {}
-        self.new_mem["submit_btn"] = self.findChild(QPushButton, "NewMemberButton")
-        self.new_mem["nameLE"] = self.findChild(QLineEdit, "NameLineEdit")
-        self.new_mem["addLE"] = self.findChild(QLineEdit, "AddLineEdit")
-        self.new_mem["phoneLE"] = self.findChild(QLineEdit, "PhoneLineEdit")
+        self.new_mem = {
+            "submit_btn": self.findChild(QPushButton, "NewMemberButton"),
+            "nameLE": self.findChild(QLineEdit, "NameLineEdit"),
+            "addLE": self.findChild(QLineEdit, "AddLineEdit"),
+            "phoneLE": self.findChild(QLineEdit, "PhoneLineEdit"),
+        }
         # ============================================================
 
         # MEMBER ROSTER TAB
-        self.member_roster = {}
-        self.member_roster["load"] = self.findChild(QPushButton, "LoadButton")
-        self.member_roster["scroll_area"] = self.findChild(
-            QScrollArea, "MembersListArea"
-        )
-        self.member_roster["widget"] = ScrollBoxContainer()
+        self.member_roster = {
+            "load": self.findChild(QPushButton, "LoadButton"),
+            "scroll_area": self.findChild(QScrollArea, "MembersListArea"),
+            "widget": ScrollBoxContainer(),
+        }
         self.member_roster["scroll_area"].setWidget(self.member_roster["widget"])
         # ============================================================
 
         # DEFAULTERS TAB
 
-        self.defaulters = {}
-        self.defaulters["scroll_area"] = self.findChild(QScrollArea, "DefaultersArea")
-        self.defaulters["widget"] = ScrollBoxContainer()
-        self.defaulters["load"] = self.findChild(QPushButton, "DefaulterLoadButton")
+        self.defaulters = {
+            "scroll_area": self.findChild(QScrollArea, "DefaultersArea"),
+            "widget": ScrollBoxContainer(),
+            "load": self.findChild(QPushButton, "DefaulterLoadButton"),
+        }
         # TODO : Add area to show all the pending books in the library
         self.defaulters["scroll_area"].setWidget(self.defaulters["widget"])
 
@@ -54,22 +49,19 @@ class MemberWindow(QMainWindow):
 
         # EDIT MEMBER TAB
 
-        self.edit_mem = {}
-        self.edit_mem["mem_search"] = self.findChild(QLineEdit, "MemberSearchLine")
-        # TODO : Add a button to go back to the search page
-        self.edit_mem["mem_search_btn"] = self.findChild(
-            QPushButton, "MemberSearchButton"
-        )
-        self.edit_mem["mem_update_btn"] = self.findChild(QPushButton, "SubmitButton")
-        self.edit_mem["name"] = self.findChild(QLineEdit, "NameLine")
-        self.edit_mem["phone"] = self.findChild(QLineEdit, "PhoneLine")
-        self.edit_mem["address"] = self.findChild(QLineEdit, "AddressLine")
-
-        self.edit_mem["scroll_area"] = self.findChild(QScrollArea, "SearchResultArea")
-        self.edit_mem["widget"] = ScrollBoxContainer()
+        self.edit_mem = {
+            "mem_search": self.findChild(QLineEdit, "MemberSearchLine"),
+            # TODO : Add a button to go back to the search page
+            "mem_search_btn": self.findChild(QPushButton, "MemberSearchButton"),
+            "mem_update_btn": self.findChild(QPushButton, "SubmitButton"),
+            "name": self.findChild(QLineEdit, "NameLine"),
+            "phone": self.findChild(QLineEdit, "PhoneLine"),
+            "address": self.findChild(QLineEdit, "AddressLine"),
+            "scroll_area": self.findChild(QScrollArea, "SearchResultArea"),
+            "widget": ScrollBoxContainer(),
+            "stacked_wig": self.findChild(QStackedWidget, "EditMemberStack"),
+        }
         self.edit_mem["scroll_area"].setWidget(self.edit_mem["widget"])
-
-        self.edit_mem["stacked_wig"] = self.findChild(QStackedWidget, "EditMemberStack")
         self.edit_mem["selected_member_code"] = 0
 
         # ============================================================
