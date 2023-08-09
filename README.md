@@ -31,7 +31,7 @@ python app.py
 -   [x] Addition of records to member file
 -   [x] Modification of address and phone number of existing member in member file.
 -   [x] Issue of book
--   [ ] Return of books - <= 7 days = 0.5 / day - <= 15 days = 1 / day 15+ days = 2/day
+-   [x] Return of books - <= 7 days = 0.5 / day - <= 15 days = 1 / day 15+ days = 2/day
 -   [x] Searching for availability of a particular book in the library
 -   [ ] Reports
 -   [ ] Subject wise book list
