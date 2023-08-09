@@ -7,18 +7,17 @@ from PyQt5 import QtCore
 class BookCard(QWidget):
     def __init__(self, details, display_avail=False, lock_btn=False, modified=False):
         super(BookCard, self).__init__()
-        card = QWidget()
-
+        self.book_code = details["bookcode"]
         font = QFont("Bahnschrift", 12)
-        self.title = QLabel(f"Name : {details['title']}", card)
+        self.title = QLabel(f"Name : {details['title']}")
         self.title.setFont(font)
-        self.author = QLabel(f"Author : {details['author']}", card)
+        self.author = QLabel(f"Author : {details['author']}")
         self.author.setFont(font)
         if modified:
-            self.fine = QLabel(f"Fine : {details['fine']}", card)
+            self.fine = QLabel(f"Fine : {details['fine']}")
             self.fine.setFont(font)
         else:
-            self.price = QLabel(f"Price : {details['price']}", card)
+            self.price = QLabel(f"Price : {details['price']}")
             self.price.setFont(font)
 
         self.card_vbox = QVBoxLayout()
@@ -28,6 +27,7 @@ class BookCard(QWidget):
             self.card_vbox.addWidget(self.fine)
         else:
             self.card_vbox.addWidget(self.price, 1)
+
         if display_avail:
             availability = QLabel(
                 f"Available : {'yes' if details['member_code'] == 0 else 'no'}"
@@ -48,3 +48,10 @@ class BookCard(QWidget):
         self.setFixedHeight(140)
         self.setAttribute(QtCore.Qt.WA_StyledBackground)
         self.setStyleSheet("background-color : blue;")
+
+    def return_lock_func(self, component):
+        def lock_book_issue():
+            print(self.book_code)
+            component["selected_book_code"] = self.book_code
+
+        return lock_book_issue

@@ -31,12 +31,13 @@ class BookController:
             return
         m = self._member.search_member_by_name(name)
         self._view.display_member_results(m)
+        self._connectSignalsToNewlyAddedComp()
 
     def issue_book(self):
         book_code = self._view.issueTab["selected_book_code"]
         member_code = self._view.issueTab["selected_member_code"]
         if book_code == 0 or member_code == 0:
-            self._view.display_issue_msg("Please lock the options")
+            self._view.show_msg("Please lock the options")
             return
         try:
             self._member.issue_book(member_code)
@@ -53,6 +54,7 @@ class BookController:
             return
         m = self._book.search_book_by_name(name)
         self._view.display_books_results(m)
+        self._connectSignalsToNewlyAddedComp()
 
     def get_all_books(self):
         d = self._book.get_all_books()
@@ -80,6 +82,10 @@ class BookController:
     def return_book(self):
         book_code = self._view.returnTab["selected_book_code"]
         mem_code = self._view.returnTab["selected_member_code"]
+
+        if book_code == 0 or mem_code == 0:
+            self._view.show_msg("Something went wrong :(")
+            return
         try:
             self._book.return_book(book_code)
             self._member.return_book(mem_code)

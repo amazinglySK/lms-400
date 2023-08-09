@@ -107,52 +107,67 @@ class BookWindow(QMainWindow):
 
         return d
 
-    def display_member_results(self, details: list[dict]):
-        self.issueTab["members_area_widget"].clear()
-        for d in details:
-            c = MemberCard(d, type="buttoned")
-            c.lock_btn.clicked.connect(lambda _: self._lock_func(d))
-            self.issueTab["members_area_widget"].add_card(c)
-
-    def _lock_func(self, details):
-        self.issueTab["selected_member_code"] = details["member_code"]
-
-    def display_member_results_return(self, details: list[dict]):
-        self.returnTab["members_area_widget"].clear()
-        for d in details:
-            c = MemberCard(d, "buttoned")
-            c.lock_btn.clicked.connect(lambda _: self._lock_func_return(d))
-            self.returnTab["member_btns"].append(c.lock_btn)
-            self.returnTab["members_area_widget"].add_card(c)
-
-    def _lock_func_return(self, details):
-        self.returnTab["selected_member_code"] = details["member_code"]
-        self.returnTab["name"].setText(details["name"])
-
-    def display_books_results(self, details: list):
-        self.issueTab["books_area_widget"].clear()
-        for d in details:
-            b = BookCard(d, display_avail=True, lock_btn=True)
-            b.lock_btn.clicked.connect(lambda _: self.issue_btn_func(d))
-            self.issueTab["books_area_widget"].add_card(b)
-
-    def issue_btn_func(self, details):
-        # FIXME : Apparently if multiple books are there it locks the last book instead of the selected one
-        self.issueTab["selected_book_code"] = details["bookcode"]
-
-    def display_books_results_return(self, details: list):
-        self.returnTab["books_area_widget"].clear()
-        for d in details:
-            b = BookCard(d, lock_btn=True, modified=True)
-            self.returnTab["book_btns"].append(b.lock_btn)
-            self.returnTab["books_area_widget"].add_card(b)
-
     def display_books(self, details: list, all=True):
         comp = "all_books_widget" if all else "available_books_widget"
         self.booksTab[comp].clear()
         for d in details:
             b = BookCard(d)
             self.booksTab[comp].add_card(b)
+
+    def display_member_results(self, details: list[dict]):
+        self.issueTab["members_area_widget"].clear()
+        for d in details:
+            c = MemberCard(d, type="buttoned")
+            c.lock_btn.clicked.connect(self._lock_func(d))
+            self.issueTab["members_area_widget"].add_card(c)
+
+    def _lock_func(self, details):
+        def func():
+            self.issueTab["selected_member_code"] = details["member_code"]
+
+        return func
+
+    def display_books_results(self, details: list):
+        self.issueTab["books_area_widget"].clear()
+        for d in details:
+            b = BookCard(d, display_avail=True, lock_btn=True)
+            b.lock_btn.clicked.connect(self.issue_btn_func(d))
+            self.issueTab["books_area_widget"].add_card(b)
+
+    def issue_btn_func(self, details):
+        def func():
+            self.issueTab["selected_book_code"] = details["bookcode"]
+
+        return func
+
+    def display_member_results_return(self, details: list[dict]):
+        self.returnTab["members_area_widget"].clear()
+        for d in details:
+            c = MemberCard(d, "buttoned")
+            c.lock_btn.clicked.connect(self._lock_func_member_return(d))
+            self.returnTab["member_btns"].append(c.lock_btn)
+            self.returnTab["members_area_widget"].add_card(c)
+
+    def _lock_func_member_return(self, details):
+        def func():
+            self.returnTab["selected_member_code"] = details["member_code"]
+            self.returnTab["name"].setText(details["name"])
+
+        return func
+
+    def display_books_results_return(self, details: list):
+        self.returnTab["books_area_widget"].clear()
+        for d in details:
+            b = BookCard(d, lock_btn=True, modified=True)
+            b.lock_btn.clicked.connect(self._lock_func_book_return(d))
+            self.returnTab["book_btns"].append(b.lock_btn)
+            self.returnTab["books_area_widget"].add_card(b)
+
+    def _lock_func_book_return(self, details):
+        def func():
+            self.returnTab["selected_book_code"] = details["bookcode"]
+
+        return func
 
     def show_msg(self, text):
         msg = QMessageBox()
