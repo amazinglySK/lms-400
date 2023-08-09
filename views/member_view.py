@@ -82,15 +82,18 @@ class MemberWindow(QMainWindow):
         self.edit_mem["widget"].clear()
         for m in members:
             c = MemberCard(m, "buttoned")
-            c.lock_btn.clicked.connect(lambda _: self.lock_func(m))
+            c.lock_btn.clicked.connect(self._lock_func(m))
             self.edit_mem["widget"].add_card(c)
 
-    def lock_func(self, details: dict):
-        self.edit_mem["selected_member_code"] = details["member_code"]
-        self.edit_mem["stacked_wig"].setCurrentIndex(1)
-        self.edit_mem["name"].setText(details["name"])
-        self.edit_mem["address"].setText(details["address"])
-        self.edit_mem["phone"].setText(details["phone"])
+    def _lock_func(self, details: dict):
+        def func():
+            self.edit_mem["selected_member_code"] = details["member_code"]
+            self.edit_mem["stacked_wig"].setCurrentIndex(1)
+            self.edit_mem["name"].setText(details["name"])
+            self.edit_mem["address"].setText(details["address"])
+            self.edit_mem["phone"].setText(details["phone"])
+
+        return func
 
     def show_msg(self, text: str):
         msg = QMessageBox()

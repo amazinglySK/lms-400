@@ -5,6 +5,9 @@ from PyQt5 import QtCore
 
 
 class BookCard(QWidget):
+    # Modified stands for return tab buttons
+    # lock_btn decides if there needs to be button
+    # display_avail decides if availability needs to be displayed
     def __init__(self, details, display_avail=False, lock_btn=False, modified=False):
         super(BookCard, self).__init__()
         self.book_code = details["bookcode"]
@@ -48,10 +51,3 @@ class BookCard(QWidget):
         self.setFixedHeight(140)
         self.setAttribute(QtCore.Qt.WA_StyledBackground)
         self.setStyleSheet("background-color : blue;")
-
-    def return_lock_func(self, component):
-        def lock_book_issue():
-            print(self.book_code)
-            component["selected_book_code"] = self.book_code
-
-        return lock_book_issue
