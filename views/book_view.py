@@ -16,6 +16,8 @@ from PyQt5.QtGui import QFont
 from PyQt5 import uic
 
 from components import ScrollBoxContainer
+from components import MemberCard
+from components import BookCard
 
 
 class BookWindow(QMainWindow):
@@ -128,170 +130,49 @@ class BookWindow(QMainWindow):
     def display_member_results(self, details: list[dict]):
         self.issueTab["members_area_widget"].clear()
         for d in details:
-            c = self._memberCard(d)
+            c = MemberCard(d, type="buttoned")
+            c.lock_btn.clicked.connect(lambda _: self._lock_func(d))
             self.issueTab["members_area_widget"].add_card(c)
 
+    def _lock_func(self, details):
+        self.issueTab["selected_member_code"] = details["member_code"]
+
     def display_member_results_return(self, details: list[dict]):
-        self.returnTab["member_area_widget"].clear()
+        self.returnTab["members_area_widget"].clear()
         for d in details:
-            c = self._memberCardMod(d)
+            c = MemberCard(d, "buttoned")
+            c.lock_btn.clicked.connect(lambda _: self._lock_func_return(d))
+            self.returnTab["member_btns"].append(c.lock_btn)
             self.returnTab["members_area_widget"].add_card(c)
+
+    def _lock_func_return(self, details):
+        self.returnTab["selected_member_code"] = details["member_code"]
+        self.returnTab["name"].setText(details["name"])
 
     def display_books_results(self, details: list):
         self.issueTab["books_area_widget"].clear()
         for d in details:
-            b = self._bookCard(d, display_avail=True, lock_btn=True)
+            b = BookCard(d, display_avail=True, lock_btn=True)
+            b.lock_btn.clicked.connect(lambda _: self.issue_btn_func(d))
             self.issueTab["books_area_widget"].add_card(b)
 
+    def issue_btn_func(self, details):
+        # FIXME : Apparently if multiple books are there it locks the last book instead of the selected one
+        self.issueTab["selected_book_code"] = details["bookcode"]
+
     def display_books_results_return(self, details: list):
-        self.returnTab["books_area_vbox"].clear()
+        self.returnTab["books_area_widget"].clear()
         for d in details:
-            b = self._bookCardMod(d)
+            b = BookCard(d, lock_btn=True, modified=True)
+            self.returnTab["book_btns"].append(b.lock_btn)
             self.returnTab["books_area_widget"].add_card(b)
 
     def display_books(self, details: list, all=True):
         comp = "all_books_widget" if all else "available_books_widget"
         self.booksTab[comp].clear()
         for d in details:
-            b = self._bookCard(d)
+            b = BookCard(d)
             self.booksTab[comp].add_card(b)
-
-    def _memberCard(self, details: dict) -> QWidget:
-        card = QWidget()
-
-        font = QFont("Bahnschrift", 12)
-        name = QLabel(f"Name : {details['name']}", card)
-        name.setFont(font)
-        phone = QLabel(f"Phone : {details['phone']}", card)
-        phone.setFont(font)
-        id = QLabel(f"Id : {details['member_code']}", card)
-        id.setFont(font)
-        lock_btn = QPushButton("Lock", card)
-        lock_btn.setFont(font)
-
-        def lock_func():
-            self.issueTab["selected_member_code"] = details["member_code"]
-
-        lock_btn.clicked.connect(lock_func)
-        lock_btn.setFixedWidth(80)
-
-        card_vbox = QVBoxLayout()
-        card_vbox.addWidget(name, 1)
-        card_vbox.addWidget(phone, 1)
-        card_vbox.addWidget(id, 1)
-        card_vbox.addWidget(lock_btn, 1)
-        card.setLayout(card_vbox)
-        card.setFixedHeight(120)
-        card.setStyleSheet("background-color : red;")
-
-        return card
-
-    def _memberCardMod(self, details: dict) -> QWidget:
-        card = QWidget()
-
-        font = QFont("Bahnschrift", 12)
-        name = QLabel(f"Name : {details['name']}", card)
-        name.setFont(font)
-        phone = QLabel(f"Phone : {details['phone']}", card)
-        phone.setFont(font)
-        id = QLabel(f"Id : {details['member_code']}", card)
-        id.setFont(font)
-        lock_btn = QPushButton("Lock", card)
-        lock_btn.setFont(font)
-
-        def lock_func():
-            self.returnTab["selected_member_code"] = details["member_code"]
-            self.returnTab["name"].setText(details["name"])
-
-        lock_btn.clicked.connect(lock_func)
-        lock_btn.setFixedWidth(80)
-
-        card_vbox = QVBoxLayout()
-        card_vbox.addWidget(name, 1)
-        card_vbox.addWidget(phone, 1)
-        card_vbox.addWidget(id, 1)
-        card_vbox.addWidget(lock_btn, 1)
-        self.returnTab["member_btns"].append(lock_btn)
-        card.setLayout(card_vbox)
-        card.setFixedHeight(120)
-        card.setStyleSheet("background-color : red;")
-
-        return card
-
-    def _bookCard(self, details: dict, display_avail=False, lock_btn=False) -> QWidget:
-        card = QWidget()
-
-        font = QFont("Bahnschrift", 12)
-        title = QLabel(f"Name : {details['title']}", card)
-        title.setFont(font)
-        author = QLabel(f"Author : {details['author']}", card)
-        author.setFont(font)
-        price = QLabel(f"Price : {details['price']}", card)
-        price.setFont(font)
-
-        card_vbox = QVBoxLayout()
-        card_vbox.addWidget(title, 1)
-        card_vbox.addWidget(author, 1)
-        card_vbox.addWidget(price, 1)
-        if display_avail:
-            availability = QLabel(
-                f"Available : {'yes' if details['member_code'] == 0 else 'no'}"
-            )
-            availability.setFont(font)
-            card_vbox.addWidget(availability)
-        if lock_btn:
-            lock_btn = QPushButton("Lock", card)
-            lock_btn.setFont(font)
-
-            def lock_func():
-                self.issueTab["selected_book_code"] = details["bookcode"]
-
-            lock_btn.clicked.connect(lock_func)
-            lock_btn.setFixedWidth(80)
-            borrowed = details["member_code"] != 0
-            if borrowed:
-                lock_btn.setEnabled(False)
-            else:
-                lock_btn.clicked.connect(lock_func)
-            card_vbox.addWidget(lock_btn)
-
-        card.setLayout(card_vbox)
-        card.setFixedHeight(140)
-        card.setStyleSheet("background-color : blue;")
-
-        return card
-
-    def _bookCardMod(self, details: dict) -> QWidget:
-        card = QWidget()
-
-        font = QFont("Bahnschrift", 12)
-        title = QLabel(f"Name : {details['title']}", card)
-        title.setFont(font)
-        author = QLabel(f"Author : {details['author']}", card)
-        author.setFont(font)
-        fine = QLabel(f"Fine : {details['fine']}", card)
-        fine.setFont(font)
-
-        card_vbox = QVBoxLayout()
-        card_vbox.addWidget(title, 1)
-        card_vbox.addWidget(author, 1)
-        card_vbox.addWidget(fine, 1)
-        lock_btn = QPushButton("Return", card)
-        lock_btn.setFont(font)
-
-        def lock_func():
-            self.returnTab["selected_book_code"] = details["bookcode"]
-
-        lock_btn.clicked.connect(lock_func)
-        lock_btn.setFixedWidth(80)
-        card_vbox.addWidget(lock_btn)
-        self.returnTab["book_btns"].append(lock_btn)
-
-        card.setLayout(card_vbox)
-        card.setFixedHeight(140)
-        card.setStyleSheet("background-color : blue;")
-
-        return card
 
     def show_msg(self, text):
         msg = QMessageBox()

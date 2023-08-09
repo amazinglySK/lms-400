@@ -12,13 +12,16 @@ class MemberCard(QWidget):
             self.name.setFont(font)
             self.phone = QLabel(f"Phone : {details['phone']}")
             self.phone.setFont(font)
+            self.id = QLabel(f"Id : {details['member_code']}")
+            self.id.setFont(font)
 
             self.card_vbox = QVBoxLayout()
             self.card_vbox.addWidget(self.phone, 1)
             self.card_vbox.addWidget(self.name, 1)
+            self.card_vbox.addWidget(self.id, 1)
 
             self.setLayout(self.card_vbox)
-            self.setFixedHeight(80)
+            self.setFixedHeight(120)
 
             # NOTE : This supposedly causes some performance issue. Keep a check
             self.setAttribute(QtCore.Qt.WA_StyledBackground)
