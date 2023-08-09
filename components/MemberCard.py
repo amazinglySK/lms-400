@@ -33,15 +33,14 @@ class MemberCard(QWidget):
             self.id.setFont(font)
             self.lock_btn = QPushButton("Lock")
             self.lock_btn.setFont(font)
-
-            self.lock_btn.clicked.connect(self.lock_func)
             self.lock_btn.setFixedWidth(80)
 
             self.card_vbox = QVBoxLayout()
             self.card_vbox.addWidget(self.name, 1)
             self.card_vbox.addWidget(self.phone, 1)
-            self.card_vbox.addWidget(id, 1)
+            self.card_vbox.addWidget(self.id, 1)
             self.card_vbox.addWidget(self.lock_btn, 1)
             self.setLayout(self.card_vbox)
             self.setFixedHeight(120)
+            self.setAttribute(QtCore.Qt.WA_StyledBackground)
             self.setStyleSheet("background-color : red;")

@@ -90,7 +90,6 @@ class MemberWindow(QMainWindow):
         self.edit_mem["widget"].clear()
         for m in members:
             c = MemberCard(m, "buttoned")
-            # FIXIT : self.lock_func() picks up the MemberCard component instead of the window
             c.lock_btn.clicked.connect(lambda _: self.lock_func(m))
             self.edit_mem["widget"].add_card(c)
 
