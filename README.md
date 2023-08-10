@@ -27,7 +27,7 @@ python app.py
 ## Progress
 
 -   [x] Addition of records to library file
--   [ ] Modification of records of library file
+-   [x] Modification of records of library file
 -   [x] Addition of records to member file
 -   [x] Modification of address and phone number of existing member in member file.
 -   [x] Issue of book

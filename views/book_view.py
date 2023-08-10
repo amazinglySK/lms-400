@@ -89,6 +89,27 @@ class BookWindow(QMainWindow):
         }
         self.returnTab["members_area"].setWidget(self.returnTab["members_area_widget"])
         self.returnTab["books_area"].setWidget(self.returnTab["books_area_widget"])
+        # ==========================================================================
+
+        # EDIT BOOKS TAB
+        self.edit_book = {
+            "book_search": self.findChild(QLineEdit, "BookSearchLine"),
+            # TODO : Add a button to go back to the search page
+            "book_search_btn": self.findChild(QPushButton, "BookSearchButton"),
+            "book_update_btn": self.findChild(QPushButton, "BookEditSubmitButton"),
+            "title": self.findChild(QLineEdit, "BookTitleLine"),
+            "author": self.findChild(QLineEdit, "BookAuthorLine"),
+            "publisher": self.findChild(QLineEdit, "BookPublisherLine"),
+            "price": self.findChild(QSpinBox, "PriceBox"),
+            "subject": self.findChild(QComboBox, "BookSubjectBox"),
+            "scroll_area": self.findChild(QScrollArea, "BookSearchResultArea"),
+            "widget": ScrollBoxContainer(),
+            "stacked_wig": self.findChild(QStackedWidget, "EditBookStack"),
+        }
+        self.edit_book["scroll_area"].setWidget(self.edit_book["widget"])
+        self.edit_book["selected_book_code"] = 0
+
+        # ============================================================
 
     def get_book_details(self):
         title = self.newBookTab["title"].text()
@@ -96,6 +117,23 @@ class BookWindow(QMainWindow):
         publisher = self.newBookTab["publisher"].text()
         price = self.newBookTab["price"].value()
         subject = self.newBookTab["subject"].currentText()
+        d = {
+            "title": title,
+            "author": author,
+            "publisher": publisher,
+            "price": price,
+            "sub_code": subject,
+        }
+
+        return d
+
+    def get_edit_details(self):
+        title = self.edit_book["title"].text()
+        author = self.edit_book["author"].text()
+        publisher = self.edit_book["publisher"].text()
+        price = self.edit_book["price"].value()
+        subject = self.edit_book["subject"].currentText()
+
         d = {
             "title": title,
             "author": author,
@@ -124,6 +162,27 @@ class BookWindow(QMainWindow):
     def _lock_func(self, details):
         def func():
             self.issueTab["selected_member_code"] = details["member_code"]
+
+        return func
+
+    def display_book_search_results(self, details: list[dict]):
+        self.edit_book["widget"].clear()
+        for d in details:
+            c = BookCard(d)
+            c.show_lock_btn(type="Lock")
+            c.lock_btn.clicked.connect(self._lock_book_to_edit(d))
+            self.edit_book["widget"].add_card(c)
+
+    def _lock_book_to_edit(self, details: dict):
+        def func():
+            self.edit_book["selected_book_code"] = details["bookcode"]
+            self.edit_book["stacked_wig"].setCurrentIndex(1)
+            self.edit_book["title"].setText(details["title"])
+            self.edit_book["author"].setText(details["author"])
+            self.edit_book["publisher"].setText(details["publisher"])
+            index = self.edit_book["subject"].findText(details["sub_code"])
+            self.edit_book["subject"].setCurrentIndex(index)
+            self.edit_book["price"].setValue(details["price"])
 
         return func
 
@@ -201,3 +260,12 @@ class BookWindow(QMainWindow):
         self.returnTab["books_area_widget"].clear()
         self.returnTab["member_btns"] = []
         self.returnTab["book_btns"] = []
+
+    def clear_update_line_edits(self):
+        self.edit_book["book_search"].clear()
+        self.edit_book["title"].clear()
+        self.edit_book["author"].clear()
+        self.edit_book["publisher"].clear()
+        self.edit_book["price"].clear()
+        self.edit_book["subject"].setCurrentIndex(0)
+        self.edit_book["widget"].clear()

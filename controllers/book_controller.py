@@ -72,6 +72,26 @@ class BookController:
         self._view.display_member_results_return(m)
         self._connectSignalsToNewlyAddedComp()
 
+    def search_book(self):
+        name = self._view.edit_book["book_search"].text().strip()
+        if name in ["", " "]:  # checks for blank strings
+            return
+        m = self._book.search_book_by_name(name)
+        self._view.display_book_search_results(m)
+
+    def edit_book(self):
+        d = self._view.get_edit_details()
+        book_code = self._view.edit_book["selected_book_code"]
+        # TODO : Apply some data sanitation method
+        try:
+            self._book.modify_book(book_code, d)
+            self._view.show_msg("Details updated successfully")
+            self._view.clear_update_line_edits()
+            self._view.edit_book["stacked_wig"].setCurrentIndex(0)
+        except Exception as err:
+            print(err)
+            self._view.show_msg("Something went wrong")
+
     def load_issued_books(self):
         mem_code = self._view.returnTab["selected_member_code"]
         books = self._book.get_issued_books_by_member(mem_code)
@@ -108,6 +128,8 @@ class BookController:
             self.search_member_return
         )
         self._view.returnTab["done_btn"].clicked.connect(self.done_returning)
+        self._view.edit_book["book_search_btn"].clicked.connect(self.search_book)
+        self._view.edit_book["book_update_btn"].clicked.connect(self.edit_book)
 
     def _connectSignalsToNewlyAddedComp(self):
         for b in self._view.returnTab["member_btns"]:
