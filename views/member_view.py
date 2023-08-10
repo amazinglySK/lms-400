@@ -81,7 +81,8 @@ class MemberWindow(QMainWindow):
     def display_mem_search_result(self, members: dict):
         self.edit_mem["widget"].clear()
         for m in members:
-            c = MemberCard(m, "buttoned")
+            c = MemberCard(m)
+            c.createLockButton()
             c.lock_btn.clicked.connect(self._lock_func(m))
             self.edit_mem["widget"].add_card(c)
 

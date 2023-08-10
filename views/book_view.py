@@ -116,7 +116,8 @@ class BookWindow(QMainWindow):
     def display_member_results(self, details: list[dict]):
         self.issueTab["members_area_widget"].clear()
         for d in details:
-            c = MemberCard(d, type="buttoned")
+            c = MemberCard(d)
+            c.createLockButton()
             c.lock_btn.clicked.connect(self._lock_func(d))
             self.issueTab["members_area_widget"].add_card(c)
 
@@ -129,7 +130,9 @@ class BookWindow(QMainWindow):
     def display_books_results(self, details: list):
         self.issueTab["books_area_widget"].clear()
         for d in details:
-            b = BookCard(d, display_avail=True, lock_btn=True)
+            b = BookCard(d)
+            b.show_availability()
+            b.show_lock_btn(type="Lock")
             b.lock_btn.clicked.connect(self.issue_btn_func(d))
             self.issueTab["books_area_widget"].add_card(b)
 
@@ -142,7 +145,8 @@ class BookWindow(QMainWindow):
     def display_member_results_return(self, details: list[dict]):
         self.returnTab["members_area_widget"].clear()
         for d in details:
-            c = MemberCard(d, "buttoned")
+            c = MemberCard(d)
+            c.createLockButton()
             c.lock_btn.clicked.connect(self._lock_func_member_return(d))
             self.returnTab["member_btns"].append(c.lock_btn)
             self.returnTab["members_area_widget"].add_card(c)
@@ -157,7 +161,9 @@ class BookWindow(QMainWindow):
     def display_books_results_return(self, details: list):
         self.returnTab["books_area_widget"].clear()
         for d in details:
-            b = BookCard(d, lock_btn=True, modified=True)
+            b = BookCard(d)
+            b.show_lock_btn(type="Return")
+            b.show_fine()
             b.lock_btn.clicked.connect(self._lock_func_book_return(d))
             self.returnTab["book_btns"].append(b.lock_btn)
             self.returnTab["books_area_widget"].add_card(b)
