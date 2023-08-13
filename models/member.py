@@ -43,9 +43,11 @@ class Member(Model):
         self.conn.commit()
         return
 
-    def get_all_members(self):
+    def get_all_members(self, raw = False):
         self.cursor.execute(f"select * from {self.name}")
         results = self.cursor.fetchall()
+        if raw :
+            return results
         results = self._parse_result(results)
         return results
 

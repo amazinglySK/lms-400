@@ -1,5 +1,5 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QLabel, QPushButton
+from PyQt5.QtWidgets import QFileDialog, QMainWindow, QApplication, QVBoxLayout, QLabel, QPushButton
 import mysql.connector
 import sys
 
@@ -7,6 +7,7 @@ from views.book_view import BookWindow
 from views.member_view import MemberWindow
 from controllers.book_controller import BookController
 from controllers.member_controller import MemberController
+from xlwriter import Writer
 from models.books import Books
 from models.member import Member
 
@@ -17,6 +18,7 @@ class DashboardView(QMainWindow):
         uic.loadUi("./ui/Dashboard Window.ui", self)
         self.member_button = self.findChild(QPushButton, "members_button")
         self.books_button = self.findChild(QPushButton, "books_button")
+        self.report_button = self.findChild(QPushButton, "ReportButton")
 
         # Database
         self.conn = mysql.connector.connect(
@@ -27,6 +29,7 @@ class DashboardView(QMainWindow):
 
         self.member_button.clicked.connect(self._redirect_member)
         self.books_button.clicked.connect(self._redirect_books)
+        self.report_button.clicked.connect(self._download_report)
 
     def _redirect_member(self):
         self.w = MemberWindow()
@@ -40,6 +43,14 @@ class DashboardView(QMainWindow):
         self.w.show()
         self.close()
 
+    def _download_report(self) : 
+        filepath = QFileDialog.getExistingDirectory(self, "Select a folder")
+        xl_writer = Writer(f"{filepath}/LMS-Report.xlsx")
+        books = self.book_model.get_all_books(raw = True)
+        members = self.member_model.get_all_members(raw = True)
+        xl_writer.add_worksheet("Members", members)
+        xl_writer.add_worksheet("Books", books)
+        xl_writer.finish_task()
 
 class Window(QMainWindow):
     def __init__(self):

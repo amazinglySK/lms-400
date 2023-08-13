@@ -66,9 +66,11 @@ class Books(Model):
         except:
             raise BookNotFoundError
 
-    def get_all_books(self):
+    def get_all_books(self, raw = False):
         self.cursor.execute(f"select * from {self.name}")
         results = self.cursor.fetchall()
+        if raw :
+            return results
         return self._parse_result(results)
 
     def search_book_by_name(self, name: str):
