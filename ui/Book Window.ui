@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Books</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color : #faf7fd;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="BookTabs">
     <property name="geometry">
@@ -45,6 +48,9 @@
         <pointsize>15</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color : #0a050f;</string>
+      </property>
       <property name="text">
        <string>Add a New Book</string>
       </property>
@@ -58,7 +64,7 @@
         <x>230</x>
         <y>110</y>
         <width>291</width>
-        <height>331</height>
+        <height>353</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -75,6 +81,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color : #0a050f;</string>
+           </property>
            <property name="text">
             <string>Title</string>
            </property>
@@ -88,6 +97,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border : 1px solid #deceef; color : #0a050f; padding : 2px;</string>
+           </property>
           </widget>
          </item>
          <item row="1" column="0">
@@ -97,6 +109,9 @@
              <family>Bahnschrift</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color : #0a050f;</string>
            </property>
            <property name="text">
             <string>Author</string>
@@ -111,6 +126,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border : 1px solid #deceef; color : #0a050f; padding : 2px;</string>
+           </property>
           </widget>
          </item>
          <item row="2" column="0">
@@ -120,6 +138,9 @@
              <family>Bahnschrift</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color : #0a050f;</string>
            </property>
            <property name="text">
             <string>Publisher</string>
@@ -134,6 +155,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border : 1px solid #deceef; color : #0a050f; padding : 2px;</string>
+           </property>
           </widget>
          </item>
          <item row="3" column="0">
@@ -143,6 +167,9 @@
              <family>Bahnschrift</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color : #0a050f;</string>
            </property>
            <property name="text">
             <string>Price</string>
@@ -157,6 +184,9 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border : 1px solid #deceef; color : #0a050f; padding : 2px;</string>
+           </property>
           </widget>
          </item>
          <item row="4" column="0">
@@ -166,6 +196,9 @@
              <family>Bahnschrift</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color : #0a050f;</string>
            </property>
            <property name="text">
             <string>Subject</string>
@@ -179,6 +212,9 @@
              <family>Bahnschrift</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border : 1px solid #deceef; color : #0a050f; padding : 2px;</string>
            </property>
            <item>
             <property name="text">
@@ -217,6 +253,9 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">color : #faf7fd; background-color : #59248f</string>
+         </property>
          <property name="text">
           <string>Submit</string>
          </property>
@@ -234,9 +273,18 @@
        <rect>
         <x>20</x>
         <y>260</y>
-        <width>151</width>
-        <height>28</height>
+        <width>161</width>
+        <height>31</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #59248f; color : #faf7fd; border: none; border-radius : 5px; padding : 5px;</string>
       </property>
       <property name="text">
        <string>Load Available Books</string>
@@ -247,9 +295,18 @@
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>151</width>
+        <width>111</width>
         <height>28</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #59248f; color : #faf7fd; border: none; border-radius : 5px; padding : 5px;</string>
       </property>
       <property name="text">
        <string>Load All Books</string>
@@ -264,6 +321,9 @@
         <height>161</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">border: none; background-color : #faf7fd; border : 2px solid #deceef;</string>
+      </property>
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
@@ -272,8 +332,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>679</width>
-         <height>159</height>
+         <width>677</width>
+         <height>157</height>
         </rect>
        </property>
       </widget>
@@ -287,6 +347,9 @@
         <height>171</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">border: none; background-color : #faf7fd; border : 2px solid #deceef;</string>
+      </property>
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
@@ -295,8 +358,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>679</width>
-         <height>169</height>
+         <width>677</width>
+         <height>167</height>
         </rect>
        </property>
       </widget>
@@ -366,6 +429,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color : #deceef; color : #0a050f; padding : 5px</string>
+             </property>
              <property name="text">
               <string>Search</string>
              </property>
@@ -375,6 +441,9 @@
          </item>
          <item>
           <widget class="QScrollArea" name="MemberSearchResultBox">
+           <property name="styleSheet">
+            <string notr="true">background-color : #faf7fd;  border : 2px solid #deceef;</string>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -383,8 +452,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>715</width>
-              <height>148</height>
+              <width>713</width>
+              <height>142</height>
              </rect>
             </property>
            </widget>
@@ -417,6 +486,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color : #deceef; color : #0a050f; padding : 5px</string>
+             </property>
              <property name="text">
               <string>Search</string>
              </property>
@@ -426,6 +498,9 @@
          </item>
          <item>
           <widget class="QScrollArea" name="SearchResultBox">
+           <property name="styleSheet">
+            <string notr="true">background-color : #faf7fd;  border : 2px solid #deceef;</string>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -434,8 +509,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>715</width>
-              <height>147</height>
+              <width>713</width>
+              <height>141</height>
              </rect>
             </property>
            </widget>
@@ -459,6 +534,9 @@
         <family>Bahnschrift</family>
         <pointsize>12</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #59248f; color : #faf7fd; border: none; border-radius : 5px;</string>
       </property>
       <property name="text">
        <string>Issue</string>
@@ -534,6 +612,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color : #deceef; color : #0a050f; padding : 5px;</string>
+             </property>
              <property name="text">
               <string>Search</string>
              </property>
@@ -543,6 +624,9 @@
          </item>
          <item>
           <widget class="QScrollArea" name="ReturnMemberSearchResults">
+           <property name="styleSheet">
+            <string notr="true">background-color : #faf7fd;  border : 2px solid #deceef;</string>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -551,8 +635,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>497</width>
-              <height>302</height>
+              <width>495</width>
+              <height>296</height>
              </rect>
             </property>
            </widget>
@@ -571,6 +655,9 @@
           <height>271</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true"> border : 2px solid #deceef; background-color : #faf7fd;</string>
+        </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
@@ -579,8 +666,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>579</width>
-           <height>269</height>
+           <width>577</width>
+           <height>267</height>
           </rect>
          </property>
         </widget>
@@ -641,6 +728,9 @@
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color : #59248f; color : #faf7fd;</string>
+        </property>
         <property name="text">
          <string>Done</string>
         </property>
@@ -695,6 +785,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color : #deceef; color : #0a050f; padding : 5px;</string>
+             </property>
              <property name="text">
               <string>Search</string>
              </property>
@@ -704,6 +797,9 @@
          </item>
          <item>
           <widget class="QScrollArea" name="BookSearchResultArea">
+           <property name="styleSheet">
+            <string notr="true">background-color : #faf7fd;  border : 2px solid #deceef;</string>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -712,8 +808,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>497</width>
-              <height>302</height>
+              <width>495</width>
+              <height>296</height>
              </rect>
             </property>
            </widget>
@@ -767,14 +863,17 @@
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>200</x>
           <y>110</y>
           <width>341</width>
-          <height>321</height>
+          <height>341</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color : #0a050f;</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
@@ -796,6 +895,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f;</string>
+             </property>
              <property name="text">
               <string>Title</string>
              </property>
@@ -811,6 +913,9 @@
                <family>Bahnschrift</family>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f; border : 1px solid #deceef; padding : 2px;</string>
              </property>
             </widget>
            </item>
@@ -828,6 +933,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f;</string>
+             </property>
              <property name="text">
               <string>Author</string>
              </property>
@@ -843,6 +951,9 @@
                <family>Bahnschrift</family>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f; border : 1px solid #deceef; padding : 2px;</string>
              </property>
             </widget>
            </item>
@@ -860,6 +971,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f;</string>
+             </property>
              <property name="text">
               <string>Publisher</string>
              </property>
@@ -875,6 +989,9 @@
                <family>Bahnschrift</family>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f; border : 1px solid #deceef; padding : 2px;</string>
              </property>
             </widget>
            </item>
@@ -892,6 +1009,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f;</string>
+             </property>
              <property name="text">
               <string>Subject</string>
              </property>
@@ -907,6 +1027,9 @@
                <family>Bahnschrift</family>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f; border : 1px solid #deceef; padding : 2px;</string>
              </property>
              <item>
               <property name="text">
@@ -949,6 +1072,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f;</string>
+             </property>
              <property name="text">
               <string>Price</string>
              </property>
@@ -970,6 +1096,9 @@
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color : #0a050f; border : 1px solid #deceef; padding : 2px;</string>
+             </property>
             </widget>
            </item>
           </layout>
@@ -981,6 +1110,9 @@
              <family>Bahnschrift</family>
              <pointsize>12</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color : #faf7fd; background-color : #59248f</string>
            </property>
            <property name="text">
             <string>Submit</string>

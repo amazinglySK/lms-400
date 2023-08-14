@@ -1,4 +1,4 @@
-# LMS - 400
+# 📚 LMS - 400
 
 Reminds you of a submarine/sea vessel? Exactly what I thought of too!
 
@@ -6,10 +6,13 @@ Reminds you of a submarine/sea vessel? Exactly what I thought of too!
 
 This project was created for the CBSE final project, integrating python concepts with mysql. LMS stands for "Library Management System". It is a simple app to manage books through a GUI made using PyQt5 with it's backend in a local mysql database.
 
+The project colorscheme was generated using [realtime-colors](https://realtimecolors.com/?colors=0a050f-faf7fd-59248f-deceef-7305e1).
+
 ## Prerequisites
 
 1. Python 3.x
 2. MYSQL 8.x
+3. [xlsxwriter module](https://pypi.org/project/XlsxWriter/)
 3. [Python mysql-connector library](https://pypi.org/project/mysql-connector-python/)
 4. [PyQt5](https://pypi.org/project/PyQt5/)
 
@@ -23,20 +26,15 @@ cd lms-400
 python app.py
 ```
 
+Make sure that you have the above requirements installed. In MySQL make sure you create a database called "LMS"
 
-## Progress
+```
+create database lms;
+```
 
--   [x] Addition of records to library file
--   [x] Modification of records of library file
--   [x] Addition of records to member file
--   [x] Modification of address and phone number of existing member in member file.
--   [x] Issue of book
--   [x] Return of books - <= 7 days = 0.5 / day - <= 15 days = 1 / day 15+ days = 2/day
--   [x] Searching for availability of a particular book in the library
--   [ ] Reports
--   [ ] Subject wise book list
--   [x] List of books issued to members
--   [x] List of available books
--   [x] List of defaulters
--   [ ] Members and books which are issued more than 7 days
--   [x] List of members in the library
+We're currently working on a python script that will seed this databse with model data.
+
+## Screenshots
+
+(TBD soon)
+

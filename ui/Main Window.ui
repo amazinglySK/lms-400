@@ -19,14 +19,17 @@
   <property name="windowTitle">
    <string>LMS - 400</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color : #faf7fd; </string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>170</y>
+      <y>300</y>
       <width>521</width>
-      <height>231</height>
+      <height>161</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -37,6 +40,9 @@
          <family>Bahnschrift</family>
          <pointsize>30</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color : #0a050f</string>
        </property>
        <property name="text">
         <string>Welcome To LMS - 400</string>
@@ -68,6 +74,9 @@
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color : #0a050f; border : none; border-radius : 5px; background-color : #deceef; padding : 6px 0;</string>
+       </property>
        <property name="text">
         <string>Proceed to Dashboard</string>
        </property>
@@ -95,12 +104,59 @@
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color : #0a050f; border : none; border-radius : 5px; background-color : #deceef; padding : 6px 0;</string>
+       </property>
        <property name="text">
         <string>Instructions</string>
        </property>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>70</y>
+      <width>471</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../assets/6607.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>520</y>
+      <width>201</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;a href=&quot;https://www.freepik.com/free-vector/people-library-flat-vector-illustration_9176169.htm#query=library%20svg&amp;position=6&amp;from_view=keyword&amp;track=ais&quot;&gt;Image by pch.vector&lt;/a&gt; on Freepik</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="openExternalLinks">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
