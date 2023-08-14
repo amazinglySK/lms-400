@@ -3,13 +3,13 @@ from PyQt5.QtWidgets import QFileDialog, QMainWindow, QApplication, QVBoxLayout,
 import mysql.connector
 import sys
 
-from views.book_view import BookWindow
-from views.member_view import MemberWindow
-from controllers.book_controller import BookController
-from controllers.member_controller import MemberController
+from views import BookWindow
+from views import MemberWindow
+from controllers import BookController
+from controllers import MemberController
 from xlwriter import Writer
-from models.books import Books
-from models.member import Member
+from models import Books
+from models import Member
 
 
 class DashboardView(QMainWindow):
@@ -47,9 +47,11 @@ class DashboardView(QMainWindow):
         filepath = QFileDialog.getExistingDirectory(self, "Select a folder")
         xl_writer = Writer(f"{filepath}/LMS-Report.xlsx")
         books = self.book_model.get_all_books(raw = True)
+        book_header = self.book_model.struct
         members = self.member_model.get_all_members(raw = True)
-        xl_writer.add_worksheet("Members", members)
-        xl_writer.add_worksheet("Books", books)
+        member_header = self.member_model.struct
+        xl_writer.add_worksheet("Members", members, member_header)
+        xl_writer.add_worksheet("Books", books, book_header)
         xl_writer.finish_task()
 
 class Window(QMainWindow):

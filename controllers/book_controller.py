@@ -1,6 +1,6 @@
-from views.book_view import BookWindow
-from models.books import Books
-from models.member import Member, MemberExceedingLimit
+from views import BookWindow
+from models import Books
+from models import Member, MemberExceedingLimit
 
 
 class BookController:
@@ -48,7 +48,7 @@ class BookController:
         finally:
             self._view.clear_issue_lines()
 
-    def search_book(self):
+    def search_book_for_issue(self):
         name = self._view.issueTab["book_search"].text().strip()
         if name == "":
             return
@@ -122,7 +122,7 @@ class BookController:
         self._view.booksTab["get_all_books"].clicked.connect(self.get_all_books)
         self._view.booksTab["get_avail_books"].clicked.connect(self.get_avail_books)
         self._view.issueTab["member_search_btn"].clicked.connect(self.search_member)
-        self._view.issueTab["book_search_btn"].clicked.connect(self.search_book)
+        self._view.issueTab["book_search_btn"].clicked.connect(self.search_book_for_issue)
         self._view.issueTab["issue_btn"].clicked.connect(self.issue_book)
         self._view.returnTab["member_search_btn"].clicked.connect(
             self.search_member_return

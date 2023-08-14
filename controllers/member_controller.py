@@ -1,6 +1,6 @@
-from views.member_view import MemberWindow
-from models.books import Books
-from models.member import Member
+from views import MemberWindow
+from models import Books
+from models import Member
 
 
 class MemberController:
