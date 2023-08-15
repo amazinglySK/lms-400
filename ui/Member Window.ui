@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Members</string>
+   <string>LMS - 400 | Members</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../assets/logo.png</normaloff>../assets/logo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color : #faf7fd</string>

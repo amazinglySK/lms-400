@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>LMS - 400 | Dashboard</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../assets/logo.png</normaloff>../assets/logo.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color : #faf7fd;</string>
   </property>

@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Books</string>
+   <string>LMS - 400 | Books</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../assets/logo.png</normaloff>../assets/logo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color : #faf7fd;</string>
@@ -602,6 +606,9 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="placeholderText">
+              <string>Search members by their name</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -774,6 +781,9 @@
                <family>Bahnschrift</family>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="placeholderText">
+              <string>Search books by their title</string>
              </property>
             </widget>
            </item>
