@@ -16,6 +16,7 @@ class MemberWindow(QMainWindow):
     def __init__(self):
         super(MemberWindow, self).__init__()
         uic.loadUi("./ui/Member Window.ui", self)
+        self.setFixedSize(self.size())
 
         # NEW MEMBER TAB
         self.new_mem = {

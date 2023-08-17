@@ -46,6 +46,7 @@ class DashboardView(QMainWindow):
         # UI
         super(DashboardView, self).__init__()
         uic.loadUi("./ui/Dashboard Window.ui", self)
+        self.setFixedSize(self.size())
         self.member_button = self.findChild(QPushButton, "members_button")
         self.books_button = self.findChild(QPushButton, "books_button")
         self.report_button = self.findChild(QPushButton, "ReportButton")
@@ -83,6 +84,7 @@ class LoginWindow(QMainWindow) :
     def __init__(self):
         super(LoginWindow, self).__init__()
         uic.loadUi("./ui/Login Window.ui", self)
+        self.setFixedSize(self.size())
 
         self.database = self.findChild(QLineEdit, "DbName")
         self.username = self.findChild(QLineEdit, "DbUsername")
@@ -112,6 +114,7 @@ class Window(QMainWindow):
     def __init__(self, connection):
         super(Window, self).__init__()
         uic.loadUi("./ui/Main Window.ui", self)
+        self.setFixedSize(self.size())
 
         self.continue_button = self.findChild(QPushButton, "ContinueButton")
         self.continue_button.clicked.connect(self._on_dashboard_click)
