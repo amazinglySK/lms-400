@@ -70,8 +70,11 @@ class DashboardView(QMainWindow):
         self.close()
 
     def _download_report(self) : 
-        filepath = QFileDialog.getExistingDirectory(self, "Select a folder")
-        xl_writer = Writer(f"{filepath}/LMS-Report.xlsx")
+        url, extension = QFileDialog.getSaveFileName(self, "Save report", filter=".xlsx")
+        filepath = url + extension
+        if not filepath : 
+            return
+        xl_writer = Writer(filepath)
         books = self.book_model.get_all_books(raw = True)
         book_header = self.book_model.struct
         members = self.member_model.get_all_members(raw = True)
