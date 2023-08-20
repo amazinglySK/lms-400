@@ -56,16 +56,6 @@ class Books(Model):
         self.conn.commit()
         return
 
-    def get_book(self, book_code: int):
-        try:
-            self.cursor.execute(
-                f"select * from {self.name} where bookcode = {book_code}"
-            )
-            result = self.cursor.fetchall()[0]
-            return self._parse_result(result)
-        except:
-            raise BookNotFoundError
-
     def get_all_books(self, raw = False):
         self.cursor.execute(f"select * from {self.name}")
         results = self.cursor.fetchall()
@@ -78,9 +68,10 @@ class Books(Model):
         results = self.cursor.fetchall()
         return self._parse_result(results)
 
-    def get_avail_books(self):
+    def get_avail_books(self, raw=False):
         self.cursor.execute(f"select * from {self.name} where member_code = 0")
         results = self.cursor.fetchall()
+        if raw : return results
         return self._parse_result(results)
 
     def borrow_book(self, book_code: int, member_code: int):
@@ -106,15 +97,16 @@ class Books(Model):
         # Returning the book
         self.modify_book(book_code, {"member_code": 0})
 
-    def get_subject_books(self, subcode: str):
-        self.cursor.execute(f"select * from {self.name} where sub_code = '{subcode}'")
+    def get_subject_books(self):
+        self.cursor.execute(f"select sub_code, bookcode, title, author, publisher from {self.name} order by sub_code")
         result = self.cursor.fetchall()
-        return self._parse_result(result)
+        subject_wise = {}
+        for p in result:
+            sub = p[0]
+            if sub in subject_wise : subject_wise[sub].append(p[1:])
+            else : subject_wise[sub] = [p[1:]]
 
-    def get_issued_books(self):
-        self.cursor.execute(f"select * from {self.name} where member_code != 0")
-        result = self.cursor.fetchall()
-        return self._parse_result(result)
+        return subject_wise
 
     def get_issued_books_by_member(self, member_code: int):
         self.cursor.execute(
@@ -129,7 +121,6 @@ class Books(Model):
         return books
 
     def get_defaulter_books(self) -> list[dict]:
-        # TODO : Probably use some kind of aggregate function to get unique defaulters
         self.cursor.execute(
             f"select * from {self.name} where datediff(curdate(), doi) >= {self.max_days} and member_code != 0"
         )

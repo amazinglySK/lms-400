@@ -28,18 +28,6 @@ class MemberController:
         members = self._mem_model.get_all_members()
         self._view.displayMembers(members)
 
-    def load_defaulters(self):
-        fine_books = self._book_model.get_defaulter_books()
-        members = []
-        member_codes = []
-        for f in fine_books:
-            if f["member_code"] != 0:
-                if f["member_code"] not in member_codes:
-                    m = self._mem_model.get_member(f["member_code"])
-                    member_codes.append(f["member_code"])
-                    members.append(m)
-        self._view.displayDefaulters(members)
-
     def search_member(self):
         name = self._view.edit_mem["mem_search"].text().strip()
         if name in ["", " "]:  # checks for blank strings
@@ -63,6 +51,5 @@ class MemberController:
     def _connectSignalsAndSlots(self):
         self._view.new_mem["submit_btn"].clicked.connect(self.add_mem)
         self._view.member_roster["load"].clicked.connect(self.load_all_mem_details)
-        self._view.defaulters["load"].clicked.connect(self.load_defaulters)
         self._view.edit_mem["mem_search_btn"].clicked.connect(self.search_member)
         self._view.edit_mem["mem_update_btn"].clicked.connect(self.edit_member)

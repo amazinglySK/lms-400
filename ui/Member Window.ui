@@ -528,59 +528,6 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="DafaultersTab">
-     <attribute name="title">
-      <string>Defaulters</string>
-     </attribute>
-     <widget class="QScrollArea" name="DefaultersArea">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>60</y>
-        <width>701</width>
-        <height>431</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"> border : 2px solid #deceef;</string>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents_3">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>697</width>
-         <height>427</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QPushButton" name="DefaulterLoadButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>20</y>
-        <width>93</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Bahnschrift</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color : #faf7fd; background-color : #59248f;</string>
-      </property>
-      <property name="text">
-       <string>Load</string>
-      </property>
-     </widget>
-    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

@@ -36,18 +36,6 @@ class MemberWindow(QMainWindow):
         self.member_roster["scroll_area"].setWidget(self.member_roster["widget"])
         # ============================================================
 
-        # DEFAULTERS TAB
-
-        self.defaulters = {
-            "scroll_area": self.findChild(QScrollArea, "DefaultersArea"),
-            "widget": ScrollBoxContainer(),
-            "load": self.findChild(QPushButton, "DefaulterLoadButton"),
-        }
-        # TODO : Add area to show all the pending books in the library
-        self.defaulters["scroll_area"].setWidget(self.defaulters["widget"])
-
-        # ============================================================
-
         # EDIT MEMBER TAB
 
         self.edit_mem = {
@@ -72,12 +60,6 @@ class MemberWindow(QMainWindow):
         for m in members:
             c = MemberCard(m)
             self.member_roster["widget"].add_card(c)
-
-    def displayDefaulters(self, members: dict):
-        self.defaulters["widget"].clear()
-        for m in members:
-            c = MemberCard(m)
-            self.defaulters["widget"].add_card(c)
 
     def display_mem_search_result(self, members: dict):
         self.edit_mem["widget"].clear()
