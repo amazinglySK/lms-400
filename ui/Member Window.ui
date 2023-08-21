@@ -320,7 +320,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color : #0a050f;</string>
+              <string notr="true">color : #0a050f;border : 1px solid #deceef;</string>
              </property>
              <property name="placeholderText">
               <string>Enter member name</string>
@@ -400,7 +400,7 @@
           <x>180</x>
           <y>150</y>
           <width>411</width>
-          <height>241</height>
+          <height>231</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -437,7 +437,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color : #0a050f; padding : 2px</string>
+              <string notr="true">color : #0a050f; padding : 2px; border : 1px solid #deceef;</string>
              </property>
             </widget>
            </item>
@@ -469,7 +469,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color : #0a050f; padding : 2px</string>
+              <string notr="true">color : #0a050f; padding : 2px; border : 1px solid #deceef;</string>
              </property>
             </widget>
            </item>
@@ -501,7 +501,7 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color : #0a050f; padding : 2px</string>
+              <string notr="true">color : #0a050f; padding : 2px; border : 1px solid #deceef;</string>
              </property>
             </widget>
            </item>
