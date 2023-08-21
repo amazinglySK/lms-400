@@ -82,7 +82,6 @@ class BookController:
     def edit_book(self):
         d = self._view.get_edit_details()
         book_code = self._view.edit_book["selected_book_code"]
-        # TODO : Apply some data sanitation method
         try:
             self._book.modify_book(book_code, d)
             self._view.show_msg("Details updated successfully")

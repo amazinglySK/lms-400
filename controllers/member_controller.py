@@ -38,7 +38,6 @@ class MemberController:
     def edit_member(self):
         d = self._view.get_edit_details()
         mem_code = self._view.edit_mem["selected_member_code"]
-        # TODO : Apply some data sanitation method
         try:
             self._mem_model.update_details(d, mem_code)
             self._view.show_msg("Details updated successfully")

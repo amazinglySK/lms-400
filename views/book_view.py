@@ -94,7 +94,6 @@ class BookWindow(QMainWindow):
         # EDIT BOOKS TAB
         self.edit_book = {
             "book_search": self.findChild(QLineEdit, "BookSearchLine"),
-            # TODO : Add a button to go back to the search page
             "book_search_btn": self.findChild(QPushButton, "BookSearchButton"),
             "book_update_btn": self.findChild(QPushButton, "BookEditSubmitButton"),
             "title": self.findChild(QLineEdit, "BookTitleLine"),
