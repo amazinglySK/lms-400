@@ -37,7 +37,6 @@ class MemberWindow(QMainWindow):
         # ============================================================
 
         # EDIT MEMBER TAB
-
         self.edit_mem = {
             "mem_search": self.findChild(QLineEdit, "MemberSearchLine"),
             # TODO : Add a button to go back to the search page

@@ -32,7 +32,6 @@ class BookWindow(QMainWindow):
             "price": self.findChild(QSpinBox, "Price"),
             "subject": self.findChild(QComboBox, "Subject"),
         }
-
         # ==========================================================================
 
         # ALL BOOKS TAB
@@ -49,7 +48,6 @@ class BookWindow(QMainWindow):
         self.booksTab["available_books"].setWidget(
             self.booksTab["available_books_widget"]
         )
-
         # ==========================================================================
 
         # ISSUE BOOKS TAB
@@ -110,7 +108,6 @@ class BookWindow(QMainWindow):
         }
         self.edit_book["scroll_area"].setWidget(self.edit_book["widget"])
         self.edit_book["selected_book_code"] = 0
-
         # ============================================================
 
     def get_book_details(self):
