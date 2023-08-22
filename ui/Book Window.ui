@@ -450,8 +450,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>713</width>
-              <height>142</height>
+              <width>96</width>
+              <height>26</height>
              </rect>
             </property>
            </widget>
@@ -507,8 +507,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>713</width>
-              <height>141</height>
+              <width>96</width>
+              <height>26</height>
              </rect>
             </property>
            </widget>
@@ -630,8 +630,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>495</width>
-              <height>276</height>
+              <width>96</width>
+              <height>26</height>
              </rect>
             </property>
            </widget>
@@ -785,6 +785,9 @@
                <family>Bahnschrift</family>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : 1px solid #deceef;</string>
              </property>
              <property name="placeholderText">
               <string>Search books by their title</string>

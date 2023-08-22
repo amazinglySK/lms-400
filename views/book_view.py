@@ -167,7 +167,7 @@ class BookWindow(QMainWindow):
         self.edit_book["widget"].clear()
         for d in details:
             c = BookCard(d)
-            c.show_lock_btn(type="Lock")
+            c.show_lock_btn(type="Edit")
             c.lock_btn.clicked.connect(self._lock_book_to_edit(d))
             self.edit_book["widget"].add_card(c)
 
