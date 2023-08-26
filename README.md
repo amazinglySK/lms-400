@@ -24,24 +24,34 @@ This project was created for the CBSE final project, integrating python concepts
 
 ## Install & Setup
 
-_Release to be declared soon_
+Using the MySQL client, make sure that you create a database. The following is the command to create a new database in MySQL command line :
+
+```bash
+create database <db-name>;
+```
+
+Once you have completed the above step, you may proceed with installing and setting up the application from git.
 
 ```bash
 git clone https://github.com/amazinglySK/lms-400.git
 cd lms-400
-pip install mysql-connector-python
-pip install PyQt5
-pip install XlsxWriter
+pip install -r requirements.txt
 python app.py
 ```
 
-Make sure that you have the above requirements installed. In MySQL make sure you create a database called "LMS"
+Once you've logged in by giving appropriate details, if you wish to seed the database with template data, run the following command :
 
-```
-create database lms;
+```bash
+python data.py
 ```
 
-We're currently working on a python script that will seed this databse with model data.
+_Voila!_ You're ready to go!
+
+## Contributors
+
+- Mohammed Hussain Raza - Design and Content
+- Jonathan Thomas - Design and Content
+- Shashwat Krishna - Code
 
 ## Screenshots
 
