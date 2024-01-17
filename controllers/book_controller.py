@@ -30,6 +30,7 @@ class BookController:
         if name in ["", " "]:  # checks for blank strings
             return
         m = self._member.search_member_by_name(name)
+        if not m : return
         self._view.display_member_results(m)
         self._connectSignalsToNewlyAddedComp()
 
@@ -53,6 +54,7 @@ class BookController:
         if name == "":
             return
         m = self._book.search_book_by_name(name)
+        if not m : return
         self._view.display_books_results(m)
         self._connectSignalsToNewlyAddedComp()
 
@@ -69,6 +71,7 @@ class BookController:
         if name == "":
             return
         m = self._member.search_member_by_name(name)
+        if not m : return
         self._view.display_member_results_return(m)
         self._connectSignalsToNewlyAddedComp()
 
@@ -77,6 +80,7 @@ class BookController:
         if name in ["", " "]:  # checks for blank strings
             return
         m = self._book.search_book_by_name(name)
+        if not m : return
         self._view.display_book_search_results(m)
 
     def edit_book(self):

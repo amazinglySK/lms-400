@@ -33,6 +33,7 @@ class MemberController:
         if name in ["", " "]:  # checks for blank strings
             return
         m = self._mem_model.search_member_by_name(name)
+        if not m : return
         self._view.display_mem_search_result(m)
 
     def edit_member(self):
